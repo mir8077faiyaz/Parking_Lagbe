@@ -1,0 +1,82 @@
+body {
+    background-color: rgba(153, 191, 151, 0.4) !important;
+    /*important overrides bootstrap css*/
+}
+
+nav {
+    display: block;
+    background-color: #092039 !important;
+
+}
+
+.nav-link {
+    color: rgba(153, 191, 151, 1) !important;
+}
+
+.navbar-brand {
+    color: rgba(153, 191, 151, 1) !important;
+
+}
+
+.myfoot {
+    color: rgba(153, 191, 151, 1);
+    margin-top: 100px;
+    background-color: #092039;
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    align-items: center;
+}
+
+
+@media (min-width: 992px) {
+
+
+    nav.navbar.navbar-expand-lg.navbar-light {
+        flex-direction: column;
+        height: 120px;
+
+    }
+
+    .nav-link {
+        color: rgba(153, 191, 151, 1) !important;
+    }
+
+    .navbar-brand {
+        color: rgba(153, 191, 151, 1) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+
+    }
+
+    .myfoot {
+        color: rgba(153, 191, 151, 1);
+        margin-top: -100px;
+        background-color: #092039;
+        display: flex;
+        justify-content: center;
+        height: 150px;
+        align-items: center;
+    }
+
+    .form-group {
+        width: 300px;
+        justify-content: center !important;
+
+    }
+
+    /* .btn {
+        margin-left: 120px;
+        margin-top: 0px;
+    } */
+    .lgbtn {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
+    li {
+        padding-left: 15px;
+    }
+
+
+}

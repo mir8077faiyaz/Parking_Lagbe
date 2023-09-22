@@ -1,0 +1,168 @@
+body {
+    background-color: rgba(153, 191, 151, 0.4) !important;
+    /*important overrides bootstrap css*/
+}
+
+.jumbo {
+    height: 810px;
+    background-image: url("../image/jumbotron_bg.jpg") !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.search {
+    height: 100px;
+    width: 350px;
+    background-color: transparent;
+    margin-left: 30px;
+    color: cornsilk;
+}
+
+.formz {
+    justify-content: center !important;
+    margin-bottom: 200px !important;
+    margin-left: 20px !important;
+}
+
+nav {
+    display: block;
+    background-color: #092039 !important;
+
+}
+
+.nav-link {
+    color: rgba(153, 191, 151, 1) !important;
+}
+
+.navbar-brand {
+    color: rgba(153, 191, 151, 1) !important;
+
+}
+
+.myfoot {
+    color: rgba(153, 191, 151, 1);
+    margin-top: 500px;
+    background-color: #092039;
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    align-items: center;
+}
+
+.form-group {
+    width: 180px;
+    margin-left: 40px;
+}
+
+.btn {
+    margin-top: 10px;
+    height: 40px;
+    width: 180px !important;
+    margin-left: 40px !important;
+}
+
+@media (min-width: 992px) {
+
+
+    nav.navbar.navbar-expand-lg.navbar-light {
+        flex-direction: column;
+        height: 120px;
+
+    }
+
+    li {
+        padding-left: 15px;
+    }
+
+    .search {
+        height: 100px;
+        width: 250px;
+        background-color: transparent;
+        margin-left: 30px;
+        color: cornsilk;
+    }
+
+    .btn {
+        margin-top: 10px;
+        height: 40px;
+        width: 250px;
+    }
+
+    .form-group {
+        margin-bottom: 0px !important;
+    }
+
+    label {
+        margin-top: 8px;
+        margin-bottom: 2px !important;
+    }
+
+    .nav-link {
+        color: rgba(153, 191, 151, 1) !important;
+    }
+
+    .navbar-brand {
+        color: rgba(153, 191, 151, 1) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+
+    }
+
+    .jumbo {
+        height: 810px;
+        background-image: url("../image/jumbotron_bg.jpg") !important;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .formz {
+        margin-bottom: 200px !important;
+        margin-left: 20px !important;
+    }
+
+    .mask {
+        height: 300px !important;
+        width: 350px !important;
+    }
+
+
+
+    .myfoot {
+        color: rgba(153, 191, 151, 1);
+        margin-top: 400px;
+        background-color: #092039;
+        display: flex;
+        justify-content: center;
+        height: 150px;
+        align-items: center;
+    }
+
+
+    .card {
+        margin-left: 80px !important;
+        margin-right: 80px !important;
+    }
+
+    .card-img-top {
+        height: 350px;
+        padding: 0px;
+
+    }
+}
+
+    @media (min-width: 597px) {
+        .btn {
+            margin-top: 10px;
+            margin-right: 150px !important;
+            height: 40px;
+            width: 250px;
+        }
+
+        .formz {
+            margin-bottom: 200px !important;
+            margin-left: 20px !important;
+        }
+
+    }

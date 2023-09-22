@@ -1,0 +1,145 @@
+body {
+    background-color: rgba(153, 191, 151, 0.4) !important;
+    /*important overrides bootstrap css*/
+}
+
+nav {
+    display: block;
+    background-color: #092039 !important;
+
+}
+
+.nav-link {
+    color: rgba(153, 191, 151, 1) !important;
+}
+
+.navbar-brand {
+    color: rgba(153, 191, 151, 1) !important;
+
+}
+
+.image1 {
+    margin-left: 120px;
+    margin-top: 20px;
+    height: auto !important;
+    width: auto !important;
+
+}
+
+.myfoot {
+    color: rgba(153, 191, 151, 1);
+    margin-top: 130px;
+    background-color: #092039;
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    align-items: center;
+}
+
+.location-flex {
+    margin-left: 10px !important;
+}
+
+.more-deets {
+    margin-left: 0 !important;
+
+}
+
+
+
+@media (min-width: 992px) {
+
+
+    nav.navbar.navbar-expand-lg.navbar-light {
+        flex-direction: column;
+        height: 120px;
+    }
+
+    li {
+        padding-left: 15px;
+    }
+
+
+    .nav-link {
+        color: rgba(153, 191, 151, 1) !important;
+    }
+
+    .navbar-brand {
+        color: rgba(153, 191, 151, 1) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .myfoot {
+        color: rgba(153, 191, 151, 1);
+        margin-top: 400px;
+        background-color: #092039;
+        display: flex;
+        justify-content: center;
+        height: 150px;
+        align-items: center;
+    }
+
+    .image1 {
+        margin-left: 120px;
+        margin-top: 20px;
+        height: 280px !important;
+        width: 280px !important;
+
+    }
+
+    .btn {
+        margin-top: 10px;
+        height: 40px;
+        width: 180px !important;
+        margin-left: 100px !important;
+    }
+
+    .deets {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .location {
+        margin-top: 20px;
+        margin-left: 100px;
+        align-items: flex-start !important;
+    }
+
+    .location h4 {
+        margin-top: 0;
+    }
+
+    .location-flex {
+
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+
+    hr {
+        border: 5px;
+        clear: both;
+        width: 80%;
+        background-color: #0e0e01;
+        height: 2px;
+    }
+
+    .more-deets {
+        margin-left: 100px !important;
+    }
+
+
+}
+
+@media (min-width: 597px) {
+    .myfoot {
+        color: rgba(153, 191, 151, 1);
+        margin-top: 400px;
+        background-color: #092039;
+        display: flex;
+        justify-content: center;
+        height: 150px;
+        align-items: center;
+    }
+}

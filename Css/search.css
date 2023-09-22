@@ -1,0 +1,122 @@
+body {
+    background-color: rgba(153, 191, 151, 0.4) !important;
+    /*important overrides bootstrap css*/
+    height: 100% !important;
+}
+
+nav {
+    display: block;
+    background-color: #092039 !important;
+
+}
+
+.nav-link {
+    color: rgba(153, 191, 151, 1) !important;
+}
+
+.navbar-brand {
+    color: rgba(153, 191, 151, 1) !important;
+
+}
+
+.search {
+    height: 100px;
+    width: 250px;
+    background-color: transparent;
+    margin-left: 15px;
+    color: rgb(4, 4, 4);
+}
+
+.cardflex {
+    margin-top: 250px;
+    margin-left: 35px;
+}
+
+.form-group {
+    width: 180px;
+    margin-left: 35px;
+}
+
+.btn {
+    margin-top: 10px;
+    height: 40px;
+    width: 180px !important;
+    margin-left: 35px !important;
+}
+
+.btn-primary {
+    margin-left: 0px !important;
+}
+
+.myfoot {
+    color: rgba(153, 191, 151, 1);
+    margin-top: 500px;
+    background-color: #092039;
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    align-items: center;
+}
+
+
+@media (min-width: 992px) {
+
+
+    nav.navbar.navbar-expand-lg.navbar-light {
+        flex-direction: column;
+        height: 120px;
+
+    }
+
+    li {
+        padding-left: 15px;
+    }
+
+    .search {
+        margin-top: 25px;
+        height: 300px;
+        background-color: rgba(153, 191, 151, 1);
+        margin-left: 30px;
+        color: rgb(34, 27, 2);
+    }
+
+    .btn {
+        margin-top: 10px;
+        height: 40px;
+        width: 250px;
+    }
+
+    .form-group {
+        margin-bottom: 0px !important;
+    }
+
+    label {
+        margin-top: 8px;
+        margin-bottom: 2px !important;
+    }
+
+
+
+    .myfoot {
+        color: rgba(153, 191, 151, 1);
+        margin-top: 120px;
+        background-color: #092039;
+        display: flex;
+        justify-content: center;
+        height: 150px;
+        align-items: center;
+    }
+
+    .carddiv {
+        display: flex !important;
+        justify-content: space-around !important;
+
+    }
+
+    .cardflex {
+        margin-top: 0px !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+}

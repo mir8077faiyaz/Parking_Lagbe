@@ -1,0 +1,105 @@
+body {
+  background-color: rgba(153, 191, 151, 0.4) !important;
+  /*important overrides bootstrap css*/
+}
+
+nav {
+  display: block;
+  background-color: #092039 !important;
+}
+
+.nav-link {
+  color: rgba(153, 191, 151, 1) !important;
+}
+
+.navbar-brand {
+  color: rgba(153, 191, 151, 1) !important;
+}
+
+.myfoot {
+  color: rgba(153, 191, 151, 1);
+  margin-top: 300px !important;
+  background-color: #092039;
+  display: flex;
+  justify-content: center;
+  height: 150px;
+  align-items: center;
+}
+
+.vehicle-link {
+  color: rgb(34, 105, 105);
+}
+
+.vehicle-link:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.card {
+  margin: 0.5%;
+  padding: 1%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 200px;
+  height: 200px;
+  border-radius: 5px;
+}
+.card:hover {
+  background: #70a4db;
+}
+.cardgroup {
+  margin-top: 2%;
+  width: 60%;
+}
+
+.verticalnav {
+  margin: 2%;
+  margin-left: 0%;
+  height: max-content;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #3b3b3b;
+  padding: 1%;
+}
+
+@media (min-width: 992px) {
+  nav.navbar.navbar-expand-lg.navbar-light {
+    flex-direction: column;
+    height: 120px;
+  }
+
+  li {
+    padding-left: 15px;
+  }
+
+  .nav-link {
+    color: rgba(153, 191, 151, 1) !important;
+  }
+
+  .navbar-brand {
+    color: rgba(153, 191, 151, 1) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .myfoot {
+    color: rgba(153, 191, 151, 1);
+    margin-top: 300px;
+    background-color: #092039;
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    align-items: center;
+  }
+}
+
+@media (min-width: 597px) {
+  .myfoot {
+    color: rgba(153, 191, 151, 1);
+    margin-top: 50px;
+    background-color: #092039;
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    align-items: center;
+  }
+}
