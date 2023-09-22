@@ -3,12 +3,13 @@ require_once "connect.php";
 session_start();
 if(isset($_SESSION['email']))
 {
-    header("location: home.php");// as the session is already set the user is logged in
+   header("location: about.php");// as the session is already set the user is logged in
    echo "wow";
     exit;
 }
-
 ?>
+
+
 
 
 <html lang="en">
@@ -136,7 +137,8 @@ if(isset($_SESSION['email']))
  // print_r($_SESSION);
     if(isset($_POST['submit'])) //submit from name
     {
-      $mail=$_POST['email'];
+        header("location: home.php"); 
+        $mail=$_POST['email'];
         $password=$_POST['pass'];
         $sql="Select * from `user` where Email='$mail' AND Password='$password'";
         $result= mysqli_query($conn,$sql);
@@ -148,11 +150,10 @@ if(isset($_SESSION['email']))
           if($count>0){
             $row= mysqli_fetch_assoc($result);
             $fname=$row["Fname"];
-          $_SESSION["username"]=$fname;
-              $_SESSION["email"] = $mail;
-              header("home.php");
+            $_SESSION["username"]=$fname;
+            $_SESSION["email"] = $mail;
           }else{
-              echo '<script>alert("Incorrect username or password!")</script>';
+              echo '<script>alert("Incorrect email or password!")</script>';
           }
       
         }else{
