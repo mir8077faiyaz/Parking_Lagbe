@@ -1,3 +1,16 @@
+<?php
+require_once "connect.php";
+session_start();
+if(isset($_SESSION['email']))
+{
+    header("location: home.php");// as the session is already set the user is logged in
+   echo "wow";
+    exit;
+}
+
+?>
+
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -36,15 +49,15 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="home.html"
+            <a class="nav-link" href="home.php"
               >Home <span class="sr-only">(current)</span></a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
+            <a class="nav-link" href="about.php">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="register.html">Register</a>
+            <a class="nav-link" href="register.php">Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Login</a>
@@ -61,23 +74,23 @@
               <div class="card-body p-3 py-2 text-center">
     
                 <div class="mb-md-3 mt-md-2">
-                  <form  method="post" action="userprofile.html" >
+                  <form  method="post">
                     <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                    <p class="text-white-50 mb-3">Please enter your login and password!</p>
+                    <p class="text-white-50 mb-3">Please enter your email and password!</p>
       
                     <div class="form-outline form-white mb-2">
-                      <input type="email" id="typeEmailX" class="form-control form-control-lg" name="email1" />
+                      <input type="email" id="typeEmailX" class="form-control form-control-lg" name="email" />
                       <label class="form-label" for="typeEmailX">Email</label>
                     </div>
       
                     <div class="form-outline form-white mb-2">
-                      <input type="password" id="typePasswordX" class="form-control form-control-lg" name="password1"/>
+                      <input type="password" id="typePasswordX" class="form-control form-control-lg" name="pass"/>
                       <label class="form-label" for="typePasswordX">Password</label>
                     </div>
       
                     <p class="small mb-2 pb-lg-1"><a class="text-white-50" href="#!">Forgot password?</a></p>
       
-                    <button class="btn btn-outline-light btn-lg px-5 lgbtn" type="submit">Login</button>
+                    <button class="btn btn-outline-light btn-lg px-5 lgbtn" name="submit" type="submit">Login</button>
                   </form>
                 </div>
     
@@ -108,7 +121,45 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
       integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"></script>
+
+
+      <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
   </body>
   </html>
+
+
+  <?php
+ // print_r($_SESSION);
+    if(isset($_POST['submit'])) //submit from name
+    {
+      $mail=$_POST['email'];
+        $password=$_POST['pass'];
+        $sql="Select * from `user` where Email='$mail' AND Password='$password'";
+        $result= mysqli_query($conn,$sql);
+
+        if($result){
+
+          $count=mysqli_num_rows($conn->query($sql)); //return number of rows matched only if my uname and pass match
+          
+          if($count>0){
+            $row= mysqli_fetch_assoc($result);
+            $fname=$row["Fname"];
+          $_SESSION["username"]=$fname;
+              $_SESSION["email"] = $mail;
+              header("home.php");
+          }else{
+              echo '<script>alert("Incorrect username or password!")</script>';
+          }
+      
+        }else{
+            // error connecting to database
+            echo "ERROR: $sql <br> $conn->error";
+        }
+    }
+?>
   </body>
 </html>
