@@ -131,36 +131,34 @@ if(isset($_SESSION['email']))
   </script>
   </body>
   </html>
-
-
-  <?php
- // print_r($_SESSION);
-    if(isset($_POST['submit'])) //submit from name
-    {
-        header("location: home.php"); 
-        $mail=$_POST['email'];
-        $password=$_POST['pass'];
-        $sql="Select * from `user` where Email='$mail' AND Password='$password'";
-        $result= mysqli_query($conn,$sql);
-
-        if($result){
-
-          $count=mysqli_num_rows($conn->query($sql)); //return number of rows matched only if my uname and pass match
-          
-          if($count>0){
-            $row= mysqli_fetch_assoc($result);
-            $fname=$row["Fname"];
-            $_SESSION["username"]=$fname;
-            $_SESSION["email"] = $mail;
-          }else{
-              echo '<script>alert("Incorrect email or password!")</script>';
-          }
-      
-        }else{
-            // error connecting to database
-            echo "ERROR: $sql <br> $conn->error";
-        }
-    }
-?>
   </body>
 </html>
+
+<?php
+if(isset($_POST['submit'])) //submit from name
+{
+    $mail=$_POST['email'];
+    $password=$_POST['pass'];
+    $sql="Select * from `user` where Email='$mail' AND Password='$password'";
+    $result= mysqli_query($conn,$sql);
+
+    if($result){
+
+      $count=mysqli_num_rows($conn->query($sql)); //return number of rows matched only if my uname and pass match
+      
+      if($count>0){
+        $row= mysqli_fetch_assoc($result);
+        $fname=$row["Fname"];
+        $_SESSION["username"]=$fname;
+        $_SESSION["email"] = $mail;
+        echo "<script>window.location.replace('home.php')</script>";
+      }else{
+          echo '<script>alert("Incorrect email or password!")</script>';
+      }
+  
+    }else{
+        // error connecting to database
+        echo "ERROR: $sql <br> $conn->error";
+    }
+}
+?>
