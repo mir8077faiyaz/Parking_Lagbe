@@ -65,7 +65,7 @@ session_start();
         </div>
         <div class="form-group" id="startTimeSelect">
           <label for="exampleFormControlSelect1">Start Time</label>
-          <select class="form-control" id="exampleFormControlSelect1" name="starttime">
+          <select class="form-control" id="exampleFormControlSelect1" name="starttime" id="startTimeSelect">
             <option>06:00:00</option>
             <option>07:00:00</option>
             <option>08:00:00</option>
@@ -88,7 +88,7 @@ session_start();
         </div>
         <div class="form-group" id="endTimeSelect">
           <label for="exampleFormControlSelect1">End Time</label>
-          <select class="form-control" id="exampleFormControlSelect1" name="endtime">
+          <select class="form-control" id="exampleFormControlSelect1" name="endtime" >
             <option>06:00:00</option>
             <option>07:00:00</option>
             <option>08:00:00</option>
@@ -121,8 +121,11 @@ session_start();
           $location=$_POST["location"];
           $start=(int)str_replace(':', '',$_POST["starttime"]);
           $end=(int)str_replace(':', '',$_POST["endtime"]);
-
-          // using location find PID from parkingdetails table
+          if($end<$start){
+            echo '<script>alert("Start time cannot be after End time")</script>';
+          }
+          else{
+                      // using location find PID from parkingdetails table
           $sql= "SELECT * FROM `parkingspotdetails` WHERE Plocation LIKE '%$location%'";
           $result= mysqli_query($conn,$sql);
           while($row=mysqli_fetch_assoc($result)){
@@ -163,19 +166,7 @@ session_start();
             echo '</div>';
             echo '<div class="card-body">';
             $img=$row['Pphoto'];
-            //echo $img;
-            // $base64ImageData = base64_encode($img);
-            // // Define a directory to save the image
-            // $directory = "DBImages"; // Change this to your desired directory
-
-            // // Generate a unique file name (you can use other methods if needed)
-            // $fileName = uniqid() . ".jpg"; // Assumes the image format is JPEG
-
-            // // Save the image data to the specified file
-            // $filePath = $directory . $fileName;
-            // file_put_contents($filePath, $base64ImageData);
-
-            echo "<img src='$img' ";
+            echo "<img src='$img'  "; //needs styling
             echo "alt='Parking Spot Image'>";
             echo "<p class='card-text'>Cost per hour:";
             echo $row['Costhour'];
@@ -183,6 +174,7 @@ session_start();
             echo '<a href="details.html" class="btn btn-primary">View Details</a>';
             echo '</div>';
             echo '</div>';
+          }
           }
 
 
