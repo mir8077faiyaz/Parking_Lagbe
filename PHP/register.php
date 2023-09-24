@@ -1,7 +1,8 @@
 <?php
 
-require_once "connect.php"
+require_once "connect.php";
 
+error_reporting(E_ERROR | E_PARSE);
 
 ?>
 <html lang="en">
@@ -64,7 +65,7 @@ require_once "connect.php"
                 margin-top: 0px;
               ">
             <div class="card-body">
-              <form action="register.php" onsubmit="return validation();" method="post">
+              <form action="register.php" onsubmit="return validation();" method="post" >
                 <div class="row align-items-center pt-4 pb-3">
                   <div class="col-md-3 ps-5">
                     <h6 class="mb-0 text-white">First Name</h6>
@@ -360,6 +361,7 @@ if(isset($_POST['submit'])){
   $phone=$_POST['phone'];
   $vnum=$_POST['vnum'];
   $vname=$_POST['vname'];
+
   $vphoto=$_POST['vphoto'];
   $slocation=$_POST['slocation'];
   $ssize=$_POST['ssize'];
@@ -367,8 +369,11 @@ if(isset($_POST['submit'])){
   $ssecure=$_POST['ssecure'];
   $sothers=$_POST['sothers'];
   $sphoto=$_POST['sphoto'];
+  
   // this if for parking owner only.
   if(empty($vnum) || empty($vname) || empty($vphoto)){
+    //$sphoto = file_get_contents($_FILES['sphoto']['tmp_name']);
+    //echo $sphoto;
     $sql1= "INSERT INTO `user`(`Fname`, `Lname`, `Email`, `Password`, `PhoneNum`, `VOwner`, `POwner`) VALUES ('$fname','$lname','$email','$pass','$phone','no','yes')";
      $result=mysqli_query($conn,$sql1);
      $sql2="SELECT `UID` FROM `user` where Email='$email'";
@@ -376,22 +381,25 @@ if(isset($_POST['submit'])){
      $row= mysqli_fetch_assoc($result2);
      $uid=$row['UID'];
      $sql3 = "INSERT INTO `parkingspotdetails`(`UID`, `Plocation`, `Pcoordinate`, `Pphoto`, `Psize`, `Costhour`, `Security`, `Others`) 
-         VALUES ('$uid', '$slocation', ST_GeomFromText('POINT(40.71727401 -74.00898606)'), '$sphoto', '$ssize', '$scost', '$ssecure', '$sothers')";
+         VALUES ('$uid', '$slocation', ST_GeomFromText('POINT(40.71727401 -74.00898606)'), '../image/$sphoto', '$ssize', '$scost', '$ssecure', '$sothers')";
 
      $result3=mysqli_query($conn,$sql3);
   }
   // this else if for vehicle owner only.
   else if(empty($slocation) || empty($ssize) || empty($scost) || empty($ssecure) || empty($sothers) || empty($sphoto)){
+    //$vphoto = file_get_contents($_FILES['vphoto']['tmp_name']);
     $sql1= "INSERT INTO `user`(`Fname`, `Lname`, `Email`, `Password`, `PhoneNum`, `VOwner`, `POwner`) VALUES ('$fname','$lname','$email','$pass','$phone','yes','no')";
      $result=mysqli_query($conn,$sql1);
      $sql2="SELECT `UID` FROM `user` where Email='$email'";
      $result2=mysqli_query($conn,$sql2);
      $row= mysqli_fetch_assoc($result2);
      $uid=$row['UID'];
-     $sql3="INSERT INTO `vehicledetails`(`UID`, `VName`, `VNum`,`VPhoto`) VALUES ('$uid','$vname','$vnum','$vphoto')";
+     $sql3="INSERT INTO `vehicledetails`(`UID`, `VName`, `VNum`,`VPhoto`) VALUES ('$uid','$vname','$vnum','../image/$vphoto')";
      $result3=mysqli_query($conn,$sql3);
 
   }else{
+    //$sphoto = file_get_contents($_FILES['sphoto']['tmp_name']);
+    //$vphoto = file_get_contents($_FILES['vphoto']['tmp_name']);
     $sql1= "INSERT INTO `user`(`Fname`, `Lname`, `Email`, `Password`, `PhoneNum`, `VOwner`, `POwner`) VALUES ('$fname','$lname','$email','$pass','$phone','yes','yes')";
      $result=mysqli_query($conn,$sql1);
      $sql2="SELECT `UID` FROM `user` where Email='$email'";
@@ -399,11 +407,11 @@ if(isset($_POST['submit'])){
      $row= mysqli_fetch_assoc($result2);
      $uid=$row['UID'];
      $sql3 = "INSERT INTO `parkingspotdetails`(`UID`, `Plocation`, `Pcoordinate`, `Pphoto`, `Psize`, `Costhour`, `Security`, `Others`) 
-     VALUES ('$uid', '$slocation', ST_GeomFromText('POINT(40.71727401 -74.00898606)'), '$sphoto', '$ssize', '$scost', '$ssecure', '$sothers')";
+     VALUES ('$uid', '$slocation', ST_GeomFromText('POINT(40.71727401 -74.00898606)'), '../image/$sphoto', '$ssize', '$scost', '$ssecure', '$sothers')";
 
      $result3=mysqli_query($conn,$sql3);
 
-     $sql4="INSERT INTO `vehicledetails`(`UID`, `VName`, `VNum`,`VPhoto`) VALUES ('$uid','$vname','$vnum','$vphoto')";
+     $sql4="INSERT INTO `vehicledetails`(`UID`, `VName`, `VNum`,`VPhoto`) VALUES ('$uid','$vname','$vnum','../image/$vphoto')";
      $result3=mysqli_query($conn,$sql4);
 
   }
