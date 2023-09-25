@@ -124,6 +124,8 @@ session_start();
           $end=(int)str_replace(':', '',$_POST["endtime"]);
           if($end<$start){
             echo '<script>alert("Start time cannot be after End time")</script>';
+          }else if($start==$end){
+            echo '<script>alert("Start time cannot be the same as End time")</script>';
           }
           else{
                       // using location find PID from parkingdetails table
@@ -147,15 +149,36 @@ session_start();
                   $status=$row1["Status"];
                   if(($currint>=$etime) && $status=="booked"){
                       // Lists the spot which was booked.
-                      $oid=$row1['OID'];
-                      $freearr[]=$oid;
+                      //$oid=$row1['OID'];
+                      //$freearr[]=$oid;
                       //free the parking space.
                       $sql3="UPDATE `activeparking` SET `Timestart`='00:00:00', `Timeend`='00:00:00', `Status`='open'";
                       $result3=mysqli_query($conn,$sql3);
                   }
                   if(($currint>=$stime) && $status=="booked") {// check if there is already a booked parking in the searched start time
+                    //echo "here1";
                     $bookflag=0;
-                  } 
+                  }else if($start==$stime && $end==$etime){ //7-11
+                    $bookflag=0;
+                    //echo "here2";
+                  }
+                   else if($start>$stime && $end<$etime){ // 8-10
+                     $bookflag=0;
+                     //echo "here3";
+                   }else if($start<$stime && $end<$etime && $end>$stime){ //6-7
+                    $bookflag=0;
+                    //echo "here4";
+                   }else if($start>=$stime && $end>=$etime && $start<$etime){
+                    //8 to 12, 8<11
+                    $bookflag=0;
+                    //echo "here5";
+                   }else if($start<$stime && $end>=$etime){
+                    //$bookflag=0;
+                    echo "here6";
+                   }else if($start<=$stime && $end<=$stime){
+                    $bookflag=1;
+                    //echo "here7";
+                   }
 
                 }
               // No parking was found in active parking table
@@ -177,7 +200,8 @@ session_start();
               echo "<p class='card-text'>Cost per hour:";
               echo $row['Costhour'];
               echo "</p>";
-              echo '<a href="details.html" class="btn btn-primary">View Details</a>';
+              echo "<a href='details.php?pid=$pid&start=$start&end=$end'";
+              echo 'class="btn btn-primary">View Details</a>';
               echo '</div>';
               echo '</div>';
             }

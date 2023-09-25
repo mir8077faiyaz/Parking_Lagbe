@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2023 at 09:22 AM
+-- Generation Time: Sep 25, 2023 at 11:36 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -35,6 +35,13 @@ CREATE TABLE `activeparking` (
   `Status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `activeparking`
+--
+
+INSERT INTO `activeparking` (`OID`, `PID`, `Timestart`, `Timeend`, `Status`) VALUES
+(9, 15, '00:00:00', '00:00:00', 'open');
+
 -- --------------------------------------------------------
 
 --
@@ -42,7 +49,6 @@ CREATE TABLE `activeparking` (
 --
 
 CREATE TABLE `parkinghistory` (
-  `OID` int(11) NOT NULL,
   `VID` int(11) NOT NULL,
   `PID` int(11) NOT NULL,
   `Date` date NOT NULL,
@@ -68,6 +74,13 @@ CREATE TABLE `parkingspotdetails` (
   `Others` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `parkingspotdetails`
+--
+
+INSERT INTO `parkingspotdetails` (`PID`, `UID`, `Plocation`, `Pcoordinate`, `Pphoto`, `Psize`, `Costhour`, `Security`, `Others`) VALUES
+(15, 23, 'DOHS Banani', 0x000000000101000000429c7fa2cf5b44407974443a938052c0, '../image/parking1.jpg', '1600', 200, 'Nai', 'Safe ');
+
 -- --------------------------------------------------------
 
 --
@@ -85,6 +98,14 @@ CREATE TABLE `user` (
   `POwner` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`UID`, `Fname`, `Lname`, `Email`, `Password`, `PhoneNum`, `VOwner`, `POwner`) VALUES
+(23, 'Mir Faiyaz ', 'Hossain', 'mir.hossain@g-suite.one', 'shajreendiya16', '+8801892776932', 'no', 'yes'),
+(24, 'Shajreen Tabassum', 'Diy', 'shajreenmir@gmail.com', 'shajreendiya16', '+8801892776932', 'yes', 'no');
+
 -- --------------------------------------------------------
 
 --
@@ -98,6 +119,13 @@ CREATE TABLE `vehicledetails` (
   `VNum` varchar(12) NOT NULL,
   `VPhoto` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `vehicledetails`
+--
+
+INSERT INTO `vehicledetails` (`VID`, `UID`, `VName`, `VNum`, `VPhoto`) VALUES
+(2, 24, 'BMW', 'Dhaka-Metro-', 0x2e2e2f696d6167652f626d772e6a706567);
 
 --
 -- Indexes for dumped tables
@@ -114,7 +142,6 @@ ALTER TABLE `activeparking`
 -- Indexes for table `parkinghistory`
 --
 ALTER TABLE `parkinghistory`
-  ADD KEY `OID` (`OID`),
   ADD KEY `VID` (`VID`),
   ADD KEY `PID` (`PID`);
 
@@ -146,25 +173,25 @@ ALTER TABLE `vehicledetails`
 -- AUTO_INCREMENT for table `activeparking`
 --
 ALTER TABLE `activeparking`
-  MODIFY `OID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `OID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `parkingspotdetails`
 --
 ALTER TABLE `parkingspotdetails`
-  MODIFY `PID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `PID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `vehicledetails`
 --
 ALTER TABLE `vehicledetails`
-  MODIFY `VID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `VID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -181,7 +208,6 @@ ALTER TABLE `activeparking`
 -- Constraints for table `parkinghistory`
 --
 ALTER TABLE `parkinghistory`
-  ADD CONSTRAINT `parkinghistory_ibfk_1` FOREIGN KEY (`OID`) REFERENCES `activeparking` (`OID`) ON DELETE CASCADE,
   ADD CONSTRAINT `parkinghistory_ibfk_2` FOREIGN KEY (`VID`) REFERENCES `vehicledetails` (`VID`) ON DELETE CASCADE,
   ADD CONSTRAINT `parkinghistory_ibfk_3` FOREIGN KEY (`PID`) REFERENCES `parkingspotdetails` (`PID`) ON DELETE CASCADE;
 

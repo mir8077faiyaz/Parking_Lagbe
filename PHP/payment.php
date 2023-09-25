@@ -1,3 +1,13 @@
+<?php
+date_default_timezone_set('Asia/Dhaka'); //get current time
+require_once "connect.php";
+session_start();
+
+//echo $_SESSION["email"];
+
+//echo $_SESSION["username"];
+
+?>
 <html lang="en">
 
 <head>
@@ -43,40 +53,74 @@
       </ul>
     </div>
   </nav>
-  <div class="container-fluid">
-    <div>
-      <h1>Parking Summary:</h1>
-    </div>
-    <div class="table-responsive-md">
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Space Image</th>
-            <th scope="col">Location</th>
-            <th scope="col">Start Time</th>
-            <th scope="col">End Time</th>
-            <th scope="col">Total Hours</th>
-            <th scope="col">Total Cost</th>
-            <th scope="col">Pay With Cash</th>
-            <th scope="col">Paypal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">  <img src="../Image/parking1.jpg" alt=""> </th>
-            <td>Gulshan 2, Dhaka 1212</td>
-            <td>3:00pm</td>
-            <td>6:00pm</td>
-            <td>3 hours</td>
-            <td>100</td>
-            <td><button type="button" class="btn btn-danger">Confirm Payment</button></td>
-            <td>Paypal Integration</td>
+  <?php
+      $pid=$_GET['pid'];
+      $start=$_GET['start'];
+      $end=$_GET['end'];
+      $totalhrs=$_GET['hour'];
+      $totalcost=$_GET['cost'];
+      $sql="SELECT * FROM `parkingspotdetails` WHERE PID='$pid'";
+      $result=mysqli_query($conn,$sql);
+      $row=mysqli_fetch_assoc($result);
+      $location=$row['Plocation'];
+      $map=$row['Pcoordinate'];
+      $photo=$row['Pphoto'];
+      $size=$row['Psize'];
+      $cost=$row['Costhour'];
+      $security=$row['Security'];
+      $others=$row['Others']
+    ?>
+ <?php
+ echo "<form method='post'>";
+ echo "<div class=\"container-fluid\">";
+ echo "    <div>";
+ echo "      <h1>Parking Summary:</h1>";
+ echo "    </div>";
+ echo "    <div class=\"table-responsive-md\">";
+ echo "      <table class=\"table\">";
+ echo "        <thead class=\"thead-dark\">";
+ echo "          <tr>";
+ echo "            <th scope=\"col\">Space Image</th>";
+ echo "            <th scope=\"col\">Location</th>";
+ echo "            <th scope=\"col\">Start Time</th>";
+ echo "            <th scope=\"col\">End Time</th>";
+ echo "            <th scope=\"col\">Total Hours</th>";
+ echo "            <th scope=\"col\">Total Cost</th>";
+ echo "            <th scope=\"col\">Paypal</th>";
+ echo "          </tr>";
+ echo "        </thead>";
+ echo "        <tbody>";
+ echo "          <tr>";
+ echo "            <th scope=\"row\">  <img src='$photo' alt=\"\"> </th>";
+ echo "            <td>$location</td>";
+ if($start=="100000" || $start=="200000"){
+  $strim=rtrim($start, '0');
+  $strim=$strim.'0';
+  }else{
+    $strim=rtrim($start, '0');
+  }
+  if($end=="100000" || $end=="200000"){
 
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    $etrim=rtrim($end, '0');
+    $etrim=$etrim.'0';
+    echo $etrim;
+  }
+  else{
+    $etrim=rtrim($end, '0');
+  }
+ echo "            <td>$strim:00</td>";
+ echo "            <td>$etrim:00</td>";
+ echo "            <td>$totalhrs</td>";
+ echo "            <td>$totalcost</td>";
+ echo "            <td><button type=\"submit\" name=\"submit\" class=\"btn btn-danger\">Confirm Payment</button></td>";
+ //echo "            <td>Paypal Integration</td>";
+ echo "          </tr>";
+ echo "        </tbody>";
+ echo "      </table>";
+ echo "    </div>";
+ echo "  </div>";
+ echo "</form>";
+ ?>
 
 
   <footer class="myfoot">
@@ -95,6 +139,37 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
+
+    <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+    </script>
 </body>
 
 </html>
+
+<?php
+  if(isset($_POST['submit'])){
+    $sql = "UPDATE `activeparking` SET `Timestart`='$strim:00:00', `Timeend`='$etrim:00:00', `Status`='booked' WHERE `PID`='$pid' AND `Status`='open'";
+
+    $result=mysqli_query($conn,$sql);
+    $sql4="INSERT INTO `activeparking`(`PID`, `Timestart`, `Timeend`, `Status`) VALUES ('$pid','00:00:00','00:00:00','open')";
+    $result4=mysqli_query($conn,$sql4);
+
+    $mail=$_SESSION['email'];
+    $sql="Select * from `user` where Email='$mail'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($result);
+    $uid=$row['UID'];
+    $sql="Select * from `vehicledetails` where UID='$uid'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($result);
+    $vid=$row['VID'];
+    $date=date("Y/m/d");
+    // insert into parking history
+    $sqlf="INSERT INTO `parkinghistory`(`VID`, `PID`, `Date`, `TotalHours`, `TotalCost`) VALUES ('$vid','$pid','$date','$totalhrs','$totalcost')";
+    $res=mysqli_query($conn,$sqlf);
+  }
+
+?>

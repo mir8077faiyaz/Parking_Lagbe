@@ -1,3 +1,13 @@
+<?php
+date_default_timezone_set('Asia/Dhaka'); //get current time
+require_once "connect.php";
+session_start();
+
+//echo $_SESSION["email"];
+
+//echo $_SESSION["username"];
+
+?>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -52,41 +62,98 @@
         </ul>
       </div>
     </nav>
+    <?php
+      $pid=$_GET['pid'];
+      $start=$_GET['start'];
+      $end=$_GET['end'];
+      $sql="SELECT * FROM `parkingspotdetails` WHERE PID='$pid'";
+      $result=mysqli_query($conn,$sql);
+      $row=mysqli_fetch_assoc($result);
+      $location=$row['Plocation'];
+      $map=$row['Pcoordinate'];
+      $photo=$row['Pphoto'];
+      $size=$row['Psize'];
+      $cost=$row['Costhour'];
+      $security=$row['Security'];
+      $others=$row['Others']
+    ?>
+    <?php
+      echo '<div class="deets">';
+      echo '  <div style="width: 30%">';
+      echo '    <img';
+      echo "      src='$photo'";
+      echo '      class="image1"';
+      echo '      alt="Responsive image"';
+      echo '    />';
+      echo '  </div>';
 
-    <div class="deets">
-      <div style="width: 30%">
-        <img
-          src="..\image\parking1.jpg"
-          class="image1"
-          alt="Responsive image"
-        />
-      </div>
+      echo '  <div style="width: 70%" class="location-flex">';
+      echo '    <div>';
+      echo "      <h4 class='location'>$location</h4>";
+      echo '    </div>';
+      echo '    <hr />';
+      echo '    <div class="more-deets">';
+      echo '      <div>';
+      echo "        <p><strong>Space Area :</strong> $size</p>";
+      echo '      </div>';
+      echo '      <div>';
+      echo "        <p><strong>Security : </strong> $security</p>";
+      echo '      </div>';
+      echo '      <div>';
+      echo "        <p><strong>Other :</strong> $others</p>";
+      echo '      </div>';
+      echo '      <div>';
+      echo "        <p><strong>Cost: ৳$cost</strong>/hr</p>";
+      echo '      </div>';
+      echo '      <div>';
+      if($start=="100000" || $start=="200000"){
+      $strim=rtrim($start, '0');
+      $strim=$strim.'0';
+      }else{
+        $strim=rtrim($start, '0');
+      }
+      if($end=="100000" || $end=="200000"){
 
-      <div style="width: 70%" class="location-flex">
-        <div>
-          <h4 class="location">Road 12, Banani, Dhaka</h4>
-        </div>
-        <hr />
-        <div class="more-deets">
-          <div>
-            <p><strong>Space Area :</strong> 400sqft</p>
-          </div>
-          <div>
-            <p><strong>Security : </strong> Guards available</p>
-          </div>
-          <div>
-            <p><strong>Floor :</strong> Basement 2</p>
-          </div>
-          <div>
-            <p><strong>Other :</strong> Clean and convenient to park</p>
-          </div>
-          <div>
-            <p><strong>Cost: ৳100</strong>/3hrs</p>
-          </div>
-        </div>
-        <div><a href="payment.html" class="btn btn-primary">Book Spot</a></div>
-      </div>
-    </div>
+        $etrim=rtrim($end, '0');
+        $etrim=$etrim.'0';
+        echo $etrim;
+      }
+      else{
+        $etrim=rtrim($end, '0');
+      }
+      echo "        <p><strong>Start time :</strong> $strim:00</p>";
+      echo '      </div>';
+      echo '      <div>';
+      echo "        <p><strong>End time :</strong> $etrim:00</p>";
+      echo '      </div>';
+      
+      echo '      <div>';
+      $totalhrs=(int)$etrim-(int)$strim;
+      echo "        <p><strong>Total Hours: </strong>$totalhrs</p>";
+      echo '      </div>';
+      echo '      <div>';
+      $totalcost=(int)$totalhrs*(int)$cost;
+      echo "        <p><strong>Total Cost: ৳$totalcost</strong></p>";
+      echo '      </div>';
+
+      echo '    </div>';
+      $mail=$_SESSION['email'];
+      $sql="Select * from `user` where Email='$mail'";
+      $result=mysqli_query($conn,$sql);
+      $row=mysqli_fetch_assoc($result);
+      $vowner=$row['VOwner'];
+      if($vowner=="yes"){
+        echo "    <div><a href='payment.php?start=$strim&end=$etrim&pid=$pid&cost=$totalcost&hour=$totalhrs'class='btn btn-primary'>Book Spot</a></div>";
+      }else{
+        echo "    <div><a href='userprofile.php'class='btn btn-dark'>Reg as V-Owner</a></div>";
+      }
+
+      echo '  </div>';
+      echo '</div>';
+      ?>
+
+
+
 
     <footer class="myfoot">
       <p>
