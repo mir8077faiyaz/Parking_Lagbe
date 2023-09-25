@@ -117,7 +117,6 @@ session_start();
       <?php 
         //echo date("h:00:00", time());
         if(isset($_POST["submit"])){
-          $bookflag=1;
           $freearr=[];
           $location=$_POST["location"];
           $start=(int)str_replace(':', '',$_POST["starttime"]);
@@ -155,6 +154,7 @@ session_start();
                       $sql3="UPDATE `activeparking` SET `Timestart`='00:00:00', `Timeend`='00:00:00', `Status`='open'";
                       $result3=mysqli_query($conn,$sql3);
                   }
+                  $bookflag=1;
                   if(($currint>=$stime) && $status=="booked") {// check if there is already a booked parking in the searched start time
                     //echo "here1";
                     $bookflag=0;
