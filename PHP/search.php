@@ -117,6 +117,7 @@ session_start();
       <?php 
         //echo date("h:00:00", time());
         if(isset($_POST["submit"])){
+          $bookflag=1;
           $freearr=[];
           $location=$_POST["location"];
           $start=(int)str_replace(':', '',$_POST["starttime"]);
@@ -152,6 +153,10 @@ session_start();
                       $sql3="UPDATE `activeparking` SET `Timestart`='00:00:00', `Timeend`='00:00:00', `Status`='open'";
                       $result3=mysqli_query($conn,$sql3);
                   }
+                  if(($currint>=$stime) && $status=="booked") {// check if there is already a booked parking in the searched start time
+                    $bookflag=0;
+                  } 
+
                 }
               // No parking was found in active parking table
               }else{
@@ -160,20 +165,23 @@ session_start();
               }      
             }
             //display this location with the current PID once.
-            echo '<div class="card mt-4">';
-            echo '<div class="card-header">';
-            echo $row['Plocation'];
-            echo '</div>';
-            echo '<div class="card-body">';
-            $img=$row['Pphoto'];
-            echo "<img src='$img'  "; //needs styling
-            echo "alt='Parking Spot Image'>";
-            echo "<p class='card-text'>Cost per hour:";
-            echo $row['Costhour'];
-            echo "</p>";
-            echo '<a href="details.html" class="btn btn-primary">View Details</a>';
-            echo '</div>';
-            echo '</div>';
+            if($bookflag==1){
+              echo '<div class="card mt-4">';
+              echo '<div class="card-header">';
+              echo $row['Plocation'];
+              echo '</div>';
+              echo '<div class="card-body">';
+              $img=$row['Pphoto'];
+              echo "<img src='$img'  "; //needs styling
+              echo "alt='Parking Spot Image'>";
+              echo "<p class='card-text'>Cost per hour:";
+              echo $row['Costhour'];
+              echo "</p>";
+              echo '<a href="details.html" class="btn btn-primary">View Details</a>';
+              echo '</div>';
+              echo '</div>';
+            }
+           
           }
           }
 
