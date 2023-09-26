@@ -1,6 +1,12 @@
 <?php
 
 require_once "connect.php";
+session_start();
+if(isset($_SESSION['email']))
+{
+   header("location: home.php");// as the session is already set the user is logged in
+    exit;
+}
 
 error_reporting(E_ERROR | E_PARSE);
 

@@ -6,6 +6,8 @@ session_start();
 //echo $_SESSION["email"];
 
 //echo $_SESSION["username"];
+error_reporting(E_ERROR | E_PARSE);
+
 
 ?>
 <html lang="en">
@@ -182,7 +184,7 @@ echo '  </nav>';
       if($vowner=="yes"){
         echo "    <div><a href='payment.php?start=$strim&end=$etrim&pid=$pid&cost=$totalcost&hour=$totalhrs'class='btn btn-primary'>Book Spot</a></div>";
       }else{
-        echo "    <div><a href='userprofile.php'class='btn btn-dark'>Reg as V-Owner</a></div>";
+        echo "    <div><a href='register.php'class='btn btn-dark'>Reg as V-Owner</a></div>";
       }
 
       echo '  </div>';
