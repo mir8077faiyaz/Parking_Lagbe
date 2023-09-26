@@ -26,34 +26,76 @@ session_start();
 
 <body>
   <!--Navbar-->
-  <nav class="navbar navbar-expand-lg navbar-light ">
-    <a class="navbar-brand" href="#">
-      <h1>Parking Lagbe</h1>
-    </a>
-    <button class="navbar-toggler btn-btn-success" type="button" data-toggle="collapse"
-      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <?php
+  if(isset($_SESSION["username"]))
+  {
+    $user= $_SESSION["username"];
+    echo '<nav class="navbar navbar-expand-lg navbar-light ">';
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="about.html">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="register.html">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="login.html">Login</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    echo '    <a class="navbar-brand" href="home.php">';
+    echo '      <h1>Parking Lagbe</h1>';
+    echo '    </a>';
+    echo '    <button class="navbar-toggler btn-btn-success" type="button" data-toggle="collapse"';
+    echo '      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"';
+    echo '      aria-label="Toggle navigation">';
+    echo '      <span class="navbar-toggler-icon"></span>';
+    echo '    </button>';
+    
+    echo '    <div class="collapse navbar-collapse" id="navbarSupportedContent">';
+    echo '      <ul class="navbar-nav">';
+    echo '        <li class="nav-item active">';
+    echo "          <a class='nav-link' href='userprofile.php'> $user <span class='sr-only'>(current)</span></a>";
+    echo '        </li>';
+    echo '        <li class="nav-item active">';
+    echo '          <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>';
+    echo '        </li>';
+    echo '        <li class="nav-item">';
+    echo '          <a class="nav-link" href="about.php">About</a>';
+    echo '        </li>';
 
+    echo '        <li class="nav-item">';
+    echo '          <a class="nav-link" href="logout.php">Logout</a>';
+    echo '        </li>';
+    echo '      </ul>';
+    echo '    </div>';
+    echo '  </nav>';
+    
+    
+
+  }
+  else{
+    
+echo '<nav class="navbar navbar-expand-lg navbar-light ">';
+echo '    <a class="navbar-brand" href="home.php">';
+echo '      <h1>Parking Lagbe</h1>';
+echo '    </a>';
+echo '    <button class="navbar-toggler btn-btn-success" type="button" data-toggle="collapse"';
+echo '      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"';
+echo '      aria-label="Toggle navigation">';
+echo '      <span class="navbar-toggler-icon"></span>';
+echo '    </button>';
+
+echo '    <div class="collapse navbar-collapse" id="navbarSupportedContent">';
+echo '      <ul class="navbar-nav">';
+echo '        <li class="nav-item active">';
+echo '          <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>';
+echo '        </li>';
+echo '        <li class="nav-item">';
+echo '          <a class="nav-link" href="about.php">About</a>';
+echo '        </li>';
+echo '        <li class="nav-item">';
+echo '          <a class="nav-link" href="register.php">Register</a>';
+echo '        </li>';
+echo '        <li class="nav-item">';
+echo '          <a class="nav-link" href="login.php">Login</a>';
+echo '        </li>';
+echo '      </ul>';
+echo '    </div>';
+echo '  </nav>';
+
+  }
+
+  ?>
   <!--jhamela-->
   <div class="container-fluid carddiv">
     <div>
@@ -117,14 +159,16 @@ session_start();
       <?php 
         //echo date("h:00:00", time());
         if(isset($_POST["submit"])){
-          $freearr=[];
+          $nosearch=0;
           $location=$_POST["location"];
           $start=(int)str_replace(':', '',$_POST["starttime"]);
           $end=(int)str_replace(':', '',$_POST["endtime"]);
           if($end<$start){
             echo '<script>alert("Start time cannot be after End time")</script>';
+            echo '<h1> Search Again! </h1>';
           }else if($start==$end){
             echo '<script>alert("Start time cannot be the same as End time")</script>';
+            echo '<h1> Search Again! </h1>';
           }
           else{
                       // using location find PID from parkingdetails table
@@ -132,6 +176,7 @@ session_start();
           $result= mysqli_query($conn,$sql);
           while($row=mysqli_fetch_assoc($result)){
             $pid=$row['PID'];
+            $bookflag=1;
 
             // check if this PID already exists in the active parking table and slots are free.
             $sql1="SELECT * FROM `activeparking` WHERE `PID`='$pid'";
@@ -142,6 +187,7 @@ session_start();
                 //For the existing parkings in active parking, update any necessary slots.
                 $cur =date("h:00:00", time());
                 $currint=(int)str_replace(':', '',$cur); // current time in integer
+
                 while($row1=mysqli_fetch_assoc($result1)){
                   $stime=(int)str_replace(':', '',$row1["Timestart"]); //start time in integer
                   $etime=(int)str_replace(':', '',$row1["Timeend"]); //end time in integer
@@ -154,11 +200,8 @@ session_start();
                       $sql3="UPDATE `activeparking` SET `Timestart`='00:00:00', `Timeend`='00:00:00', `Status`='open'";
                       $result3=mysqli_query($conn,$sql3);
                   }
-                  $bookflag=1;
-                  if(($currint>=$stime) && $status=="booked") {// check if there is already a booked parking in the searched start time
-                    //echo "here1";
-                    $bookflag=0;
-                  }else if($start==$stime && $end==$etime){ //7-11
+
+                   if($start==$stime && $end==$etime){ //7-11
                     $bookflag=0;
                     //echo "here2";
                   }
@@ -173,8 +216,8 @@ session_start();
                     $bookflag=0;
                     //echo "here5";
                    }else if($start<$stime && $end>=$etime){
-                    //$bookflag=0;
-                    echo "here6";
+                    $bookflag=0;
+                    //echo "here6";
                    }else if($start<=$stime && $end<=$stime){
                     $bookflag=1;
                     //echo "here7";
@@ -204,12 +247,15 @@ session_start();
               echo 'class="btn btn-primary">View Details</a>';
               echo '</div>';
               echo '</div>';
+              $nosearch=1;
             }
            
           }
           }
 
-
+            if($nosearch==0){
+              echo '<h1> No Results Found,Search Again! </h1>';
+            }
         }
       ?>
     </div>

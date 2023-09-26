@@ -1,3 +1,10 @@
+<?php
+session_start();
+date_default_timezone_set('Asia/Dhaka'); //get current time
+require_once "connect.php";
+?>
+
+
 <html lang="en">
 
 <head>
@@ -16,103 +23,134 @@
 
 <body>
   <!--Navbar-->
-  <nav class="navbar navbar-expand-lg navbar-light ">
-    <a class="navbar-brand" href="home.php">
-      <h1>Parking Lagbe</h1>
-    </a>
-    <button class="navbar-toggler btn-btn-success" type="button" data-toggle="collapse"
-      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <?php
+  if(isset($_SESSION["username"]))
+  {
+    $user= $_SESSION["username"];
+    echo '<nav class="navbar navbar-expand-lg navbar-light ">';
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="about.php">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="register.php">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="login.php">Login</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    echo '    <a class="navbar-brand" href="home.php">';
+    echo '      <h1>Parking Lagbe</h1>';
+    echo '    </a>';
+    echo '    <button class="navbar-toggler btn-btn-success" type="button" data-toggle="collapse"';
+    echo '      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"';
+    echo '      aria-label="Toggle navigation">';
+    echo '      <span class="navbar-toggler-icon"></span>';
+    echo '    </button>';
+    
+    echo '    <div class="collapse navbar-collapse" id="navbarSupportedContent">';
+    echo '      <ul class="navbar-nav">';
+    echo '        <li class="nav-item active">';
+    echo "          <a class='nav-link' href='userprofile.php'> $user <span class='sr-only'>(current)</span></a>";
+    echo '        </li>';
+    echo '        <li class="nav-item active">';
+    echo '          <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>';
+    echo '        </li>';
+    echo '        <li class="nav-item">';
+    echo '          <a class="nav-link" href="about.php">About</a>';
+    echo '        </li>';
+
+    echo '        <li class="nav-item">';
+    echo '          <a class="nav-link" href="logout.php">Logout</a>';
+    echo '        </li>';
+    echo '      </ul>';
+    echo '    </div>';
+    echo '  </nav>';
+    
+    
+
+  }
+  else{
+    
+echo '<nav class="navbar navbar-expand-lg navbar-light ">';
+echo '    <a class="navbar-brand" href="home.php">';
+echo '      <h1>Parking Lagbe</h1>';
+echo '    </a>';
+echo '    <button class="navbar-toggler btn-btn-success" type="button" data-toggle="collapse"';
+echo '      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"';
+echo '      aria-label="Toggle navigation">';
+echo '      <span class="navbar-toggler-icon"></span>';
+echo '    </button>';
+
+echo '    <div class="collapse navbar-collapse" id="navbarSupportedContent">';
+echo '      <ul class="navbar-nav">';
+echo '        <li class="nav-item active">';
+echo '          <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>';
+echo '        </li>';
+echo '        <li class="nav-item">';
+echo '          <a class="nav-link" href="about.php">About</a>';
+echo '        </li>';
+echo '        <li class="nav-item">';
+echo '          <a class="nav-link" href="register.php">Register</a>';
+echo '        </li>';
+echo '        <li class="nav-item">';
+echo '          <a class="nav-link" href="login.php">Login</a>';
+echo '        </li>';
+echo '      </ul>';
+echo '    </div>';
+echo '  </nav>';
+
+  }
+
+  ?>
+ 
   <!-- Jumbotron -->
   <div class="p-5 text-center bg-image rounded-3 jumbo">
     <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
       <div class="d-flex justify-content-left align-items-top h-50 w-50 formz">
-        <form class="search" action="search.html">
+        <form class="search" action="search.php" method="post">
           <div class="form-group">
             <label for="exampleFormControlInput1">Location</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"
-              placeholder="banani,dhaka,bangladesh" required />
+            <input type="text" class="form-control" id="exampleFormControlInput1 "
+              placeholder="banani,dhaka,bangladesh" required name="location" />
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">Start Time</label>
-            <select class="form-control" id="exampleFormControlSelect1" required>
-              <option>00:00</option>
-              <option>01:00</option>
-              <option>02:00</option>
-              <option>03:00</option>
-              <option>04:00</option>
-              <option>05:00</option>
-              <option>06:00</option>
-              <option>07:00</option>
-              <option>08:00</option>
-              <option>09:00</option>
-              <option>10:00</option>
-              <option>11:00</option>
-              <option>12:00</option>
-              <option>13:00</option>
-              <option>14:00</option>
-              <option>15:00</option>
-              <option>16:00</option>
-              <option>17:00</option>
-              <option>18:00</option>
-              <option>19:00</option>
-              <option>20:00</option>
-              <option>21:00</option>
-              <option>22:00</option>
-              <option>23:00</option>
+            <select class="form-control" id="exampleFormControlSelect1" name="starttime" required>
+            <option>06:00:00</option>
+            <option>07:00:00</option>
+            <option>08:00:00</option>
+            <option>09:00:00</option>
+            <option>10:00:00</option>
+            <option>11:00:00</option>
+            <option>12:00:00</option>
+            <option>13:00:00</option>
+            <option>14:00:00</option>
+            <option>15:00:00</option>
+            <option>16:00:00</option>
+            <option>17:00:00</option>
+            <option>18:00:00</option>
+            <option>19:00:00</option>
+            <option>20:00:00</option>
+            <option>21:00:00</option>
+            <option>22:00:00</option>
+            <option>23:00:00</option>
             </select>
           </div>
           <div class="form-group">
             <label for="exampleFormControlSelect1">End Time</label>
-            <select class="form-control" id="exampleFormControlSelect1" required>
-              <option>00:00</option>
-              <option>01:00</option>
-              <option>02:00</option>
-              <option>03:00</option>
-              <option>04:00</option>
-              <option>05:00</option>
-              <option>06:00</option>
-              <option>07:00</option>
-              <option>08:00</option>
-              <option>09:00</option>
-              <option>10:00</option>
-              <option>11:00</option>
-              <option>12:00</option>
-              <option>13:00</option>
-              <option>14:00</option>
-              <option>15:00</option>
-              <option>16:00</option>
-              <option>17:00</option>
-              <option>18:00</option>
-              <option>19:00</option>
-              <option>20:00</option>
-              <option>21:00</option>
-              <option>22:00</option>
-              <option>23:00</option>
+            <select class="form-control" id="exampleFormControlSelect1"  name="endtime" required>
+            <option>06:00:00</option>
+            <option>07:00:00</option>
+            <option>08:00:00</option>
+            <option>09:00:00</option>
+            <option>10:00:00</option>
+            <option>11:00:00</option>
+            <option>12:00:00</option>
+            <option>13:00:00</option>
+            <option>14:00:00</option>
+            <option>15:00:00</option>
+            <option>16:00:00</option>
+            <option>17:00:00</option>
+            <option>18:00:00</option>
+            <option>19:00:00</option>
+            <option>20:00:00</option>
+            <option>21:00:00</option>
+            <option>22:00:00</option>
+            <option>23:00:00</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-danger form-group">Search</button>
-
+          <button type="submit" class="btn btn-danger form-group" name="submit">Search</button>
         </form>
       </div>
 

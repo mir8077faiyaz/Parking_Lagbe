@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+?>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -18,37 +23,77 @@
   </head>
 
   <body>
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="#"><h1>Parking Lagbe</h1></a>
-      <button
-        class="navbar-toggler btn-btn-success"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+   <!--Navbar-->
+   <?php
+  if(isset($_SESSION["username"]))
+  {
+    $user= $_SESSION["username"];
+    echo '<nav class="navbar navbar-expand-lg navbar-light ">';
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="home.html"
-              >Home <span class="sr-only">(current)</span></a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="home.html">Logout</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    echo '    <a class="navbar-brand" href="home.php">';
+    echo '      <h1>Parking Lagbe</h1>';
+    echo '    </a>';
+    echo '    <button class="navbar-toggler btn-btn-success" type="button" data-toggle="collapse"';
+    echo '      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"';
+    echo '      aria-label="Toggle navigation">';
+    echo '      <span class="navbar-toggler-icon"></span>';
+    echo '    </button>';
+    
+    echo '    <div class="collapse navbar-collapse" id="navbarSupportedContent">';
+    echo '      <ul class="navbar-nav">';
+    echo '        <li class="nav-item active">';
+    echo "          <a class='nav-link' href='userprofile.php'> $user <span class='sr-only'>(current)</span></a>";
+    echo '        </li>';
+    echo '        <li class="nav-item active">';
+    echo '          <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>';
+    echo '        </li>';
+    echo '        <li class="nav-item">';
+    echo '          <a class="nav-link" href="about.php">About</a>';
+    echo '        </li>';
+
+    echo '        <li class="nav-item">';
+    echo '          <a class="nav-link" href="logout.php">Logout</a>';
+    echo '        </li>';
+    echo '      </ul>';
+    echo '    </div>';
+    echo '  </nav>';
+    
+    
+
+  }
+  else{
+    
+echo '<nav class="navbar navbar-expand-lg navbar-light ">';
+echo '    <a class="navbar-brand" href="home.php">';
+echo '      <h1>Parking Lagbe</h1>';
+echo '    </a>';
+echo '    <button class="navbar-toggler btn-btn-success" type="button" data-toggle="collapse"';
+echo '      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"';
+echo '      aria-label="Toggle navigation">';
+echo '      <span class="navbar-toggler-icon"></span>';
+echo '    </button>';
+
+echo '    <div class="collapse navbar-collapse" id="navbarSupportedContent">';
+echo '      <ul class="navbar-nav">';
+echo '        <li class="nav-item active">';
+echo '          <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>';
+echo '        </li>';
+echo '        <li class="nav-item">';
+echo '          <a class="nav-link" href="about.php">About</a>';
+echo '        </li>';
+echo '        <li class="nav-item">';
+echo '          <a class="nav-link" href="register.php">Register</a>';
+echo '        </li>';
+echo '        <li class="nav-item">';
+echo '          <a class="nav-link" href="login.php">Login</a>';
+echo '        </li>';
+echo '      </ul>';
+echo '    </div>';
+echo '  </nav>';
+
+  }
+
+  ?>
 
     <div class="row">
       <div class="verticalnav col-3">
@@ -58,23 +103,23 @@
           role="tablist"
           aria-orientation="vertical"
         >
-        <a class="navbar-brand" href="userprofile.html"
+        <a class="navbar-brand" href="userprofile.php"
         ><h3 style="color: aliceblue; margin-left: 1%">Username</h3></a
       >
           <a
             class="nav-link"
-            href="history.html"
+            href="history.php"
             aria-selected="false"
             >Parking History</a
           >
           <a
             class="nav-link active"
-            href="account.html"
+            href="account.php"
             aria-selected="true"
             >Account Settings</a>
           <a
             class="nav-link"
-            href="savedvehicles.html"
+            href="savedvehicles.php"
             aria-selected="false"
             >Saved Vehicles</a
           >
