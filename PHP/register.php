@@ -71,7 +71,7 @@ error_reporting(E_ERROR | E_PARSE);
                 margin-top: 0px;
               ">
             <div class="card-body">
-              <form action="register.php" onsubmit="return validation();" method="post" >
+              <form action="register.php" onsubmit="return validation();" onkeydown="return event.key != 'Enter';" method="post" >
                 <div class="row align-items-center pt-4 pb-3">
                   <div class="col-md-3 ps-5">
                     <h6 class="mb-0 text-white">First Name</h6>
