@@ -114,7 +114,7 @@ echo '  </nav>';
       $others=$row['Others']
     ?>
  <?php
- echo "<form method='post'>";
+ echo "<form method='post' action='checkout.php'>";
  echo "<div class=\"container-fluid\">";
  echo "    <div>";
  echo "      <h1>Parking Summary:</h1>";
@@ -156,13 +156,21 @@ echo '  </nav>';
  echo "            <td>$totalhrs</td>";
  echo "            <td>$totalcost</td>";
  echo "            <td><button type=\"submit\" name=\"submit\" class=\"btn btn-danger\">Confirm Payment</button></td>";
+ echo "<input type='hidden' name='strim' value='$strim'>";
+echo "<input type='hidden' name='etrim' value='$etrim'>";
+echo "<input type='hidden' name='location' value='$location'>";
+echo "<input type='hidden' name='totalcost' value='$totalcost'>";
+echo "<input type='hidden' name='totalhrs' value='$totalhrs'>";
+echo "<input type='hidden' name='pid' value='$pid'>";
  //echo "            <td>Paypal Integration</td>";
  echo "          </tr>";
  echo "        </tbody>";
  echo "      </table>";
  echo "    </div>";
  echo "  </div>";
+ 
  echo "</form>";
+
  ?>
 
 
@@ -192,27 +200,3 @@ echo '  </nav>';
 
 </html>
 
-<?php
-  if(isset($_POST['submit'])){
-    $sql = "UPDATE `activeparking` SET `Timestart`='$strim:00:00', `Timeend`='$etrim:00:00', `Status`='booked' WHERE `PID`='$pid' AND `Status`='open'";
-
-    $result=mysqli_query($conn,$sql);
-    $sql4="INSERT INTO `activeparking`(`PID`, `Timestart`, `Timeend`, `Status`) VALUES ('$pid','00:00:00','00:00:00','open')";
-    $result4=mysqli_query($conn,$sql4);
-
-    $mail=$_SESSION['email'];
-    $sql="Select * from `user` where Email='$mail'";
-    $result=mysqli_query($conn,$sql);
-    $row=mysqli_fetch_assoc($result);
-    $uid=$row['UID'];
-    $sql="Select * from `vehicledetails` where UID='$uid'";
-    $result=mysqli_query($conn,$sql);
-    $row=mysqli_fetch_assoc($result);
-    $vid=$row['VID'];
-    $date=date("Y/m/d");
-    // insert into parking history
-    $sqlf="INSERT INTO `parkinghistory`(`VID`, `PID`, `Date`, `TotalHours`, `TotalCost`) VALUES ('$vid','$pid','$date','$totalhrs','$totalcost')";
-    $res=mysqli_query($conn,$sqlf);
-  }
-
-?>
