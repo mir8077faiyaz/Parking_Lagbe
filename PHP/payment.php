@@ -129,7 +129,7 @@ echo '  </nav>';
  echo "            <th scope=\"col\">End Time</th>";
  echo "            <th scope=\"col\">Total Hours</th>";
  echo "            <th scope=\"col\">Total Cost</th>";
- echo "            <th scope=\"col\">Paypal</th>";
+ echo "            <th scope=\"col\">Stripe Payment</th>";
  echo "          </tr>";
  echo "        </thead>";
  echo "        <tbody>";
