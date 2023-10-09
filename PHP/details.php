@@ -16,7 +16,6 @@ error_reporting(E_ERROR | E_PARSE);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--always connect to external css using :    ..\relative path-->
     <link rel="stylesheet" type="text/css" href="../css/details.css" />
-
     <!-- Bootstrap CSS -->
 
     <link
@@ -25,10 +24,18 @@ error_reporting(E_ERROR | E_PARSE);
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous"
     />
-
+    <style>
+    #map{
+      height: 400px;
+      width: 70%;
+      margin-top:40px;
+      margin-left:60px;
+    }
+  </style>
     <title>Parking Details</title>
-  </head>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpq_AT05oYjZcuMcsLuH_NLeKdZDJSLTU&callback=initMap" async defer></script>
 
+  </head>
   <body>
     <!--Navbar-->
   <?php
@@ -114,7 +121,19 @@ echo '  </nav>';
       $size=$row['Psize'];
       $cost=$row['Costhour'];
       $security=$row['Security'];
-      $others=$row['Others']
+      $others=$row['Others'];
+      // $pcoordinate=$row['Pcoordinate'];
+      // list($latitude, $longitude) = sscanf($pcoordinate, 'POINT(%f %f)');
+      // echo($longitude);
+      $sql = "SELECT X(Pcoordinate) AS latitude, Y(Pcoordinate) AS longitude FROM `parkingspotdetails` WHERE PID='$pid'";
+      $result = mysqli_query($conn, $sql);
+      $row = mysqli_fetch_assoc($result);
+
+      $latitude = $row['latitude'];
+      $longitude = $row['longitude'];
+      //echo($latitude);
+
+
     ?>
     <?php
       echo '<div class="deets">';
@@ -124,6 +143,7 @@ echo '  </nav>';
       echo '      class="image1"';
       echo '      alt="Responsive image"';
       echo '    />';
+      echo '<div id="map"></div>';
       echo '  </div>';
 
       echo '  <div style="width: 70%" class="location-flex">';
@@ -216,5 +236,34 @@ echo '  </nav>';
       integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"
     ></script>
+    <script>
+    var map;
+
+    function initMap() {
+      console.log("here");
+      // Replace 'latitude' and 'longitude' with your actual values
+      var latitude = 40.7128;
+      var longitude = -74.0060;
+      var latitude = <?php echo $latitude; ?>;
+      var longitude = <?php echo $longitude; ?>;
+
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: latitude, lng: longitude},
+        zoom: 15
+      });
+
+      // Place a marker at the specified location
+      var marker = new google.maps.Marker({
+        position: {lat: latitude, lng: longitude},
+        map: map,
+        title: 'Your Location'
+      });
+    }
+  </script>
+
+
+
+
+  
   </body>
 </html>

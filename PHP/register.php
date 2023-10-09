@@ -20,7 +20,7 @@ error_reporting(E_ERROR | E_PARSE);
   <link rel="stylesheet" type="text/css" href="../css/register.css" />
 
   <!-- Bootstrap CSS -->
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpq_AT05oYjZcuMcsLuH_NLeKdZDJSLTU&libraries=places"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
 
@@ -71,7 +71,7 @@ error_reporting(E_ERROR | E_PARSE);
                 margin-top: 0px;
               ">
             <div class="card-body">
-              <form action="register.php" onsubmit="return validation();" onkeydown="return event.key != 'Enter';" method="post" >
+              <form action="register.php" onsubmit="return validation();" onkeydown="return event.key != 'Enter';" method="post" id="locationForm">
                 <div class="row align-items-center pt-4 pb-3">
                   <div class="col-md-3 ps-5">
                     <h6 class="mb-0 text-white">First Name</h6>
@@ -168,7 +168,7 @@ error_reporting(E_ERROR | E_PARSE);
                     </div>
                   </div>
                   <div>
-                    <h2>MAP API will be added here</h2>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mapModal"> Open Map</button>
                   </div>
                   <div class="row align-items-center pt-4 pb-3">
                     <div class="col-md-3 ps-5">
@@ -225,6 +225,27 @@ error_reporting(E_ERROR | E_PARSE);
       </div>
     </div>
   </section>
+ <!-- Map Modal -->
+ <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mapModalLabel">Select Location on Map</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         <div id="map" style="width: 100%; height: 400px;"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="saveLocation()">Save Location</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <footer class="myfoot">
     <p>
@@ -352,6 +373,147 @@ error_reporting(E_ERROR | E_PARSE);
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
+
+<!-- Combined JavaScript code -->
+
+<script>
+  var map;
+  var mapMarkers = []; // Declare an array to store markers
+  var searchBox;
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 8
+    });
+
+    // Add a click event listener to the map
+    google.maps.event.addListener(map, 'click', function(event) {
+      placeMarker(event.latLng);
+    });
+
+    // Create the search box only if it doesn't exist
+    if (!searchBox) {
+      createSearchBox();
+    }
+  }
+
+  function createSearchBox() {
+    // Create the search box and link it to the UI element.
+    var input = document.createElement('input');
+    input.id = 'pac-input';
+    input.className = 'controls';
+    input.type = 'text';
+    input.placeholder = 'Search Box';
+    document.getElementById('mapModal').getElementsByClassName('modal-body')[0].appendChild(input);
+
+    searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function() {
+      searchBox.setBounds(map.getBounds());
+    });
+
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+      var places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+
+      // Clear existing markers
+      mapMarkers.forEach(marker => marker.setMap(null));
+      mapMarkers = [];
+
+      // For each place, get the icon, name and location.
+      var bounds = new google.maps.LatLngBounds();
+      places.forEach(function(place) {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+
+        // Place a marker for each place.
+        var marker = new google.maps.Marker({
+          map: map,
+          title: place.name,
+          position: place.geometry.location
+        });
+
+        mapMarkers.push(marker);
+
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      map.fitBounds(bounds);
+    });
+  }
+
+  function placeMarker(location) {
+    // Clear existing markers
+    mapMarkers.forEach(marker => marker.setMap(null));
+    mapMarkers = [];
+
+    // Place a marker at the clicked location
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+
+    mapMarkers.push(marker);
+  }
+
+  function saveLocation() {
+    // Retrieve latitude and longitude from the marker (you can modify this based on your requirements)
+    var marker = mapMarkers[0];
+    if (marker) {
+      var lat = marker.getPosition().lat();
+      var lng = marker.getPosition().lng();
+
+      var latInput = document.createElement('input');
+      latInput.type = 'hidden';
+      latInput.name = 'latitude';
+      latInput.value = lat;
+      document.getElementById('locationForm').appendChild(latInput);
+
+      var lngInput = document.createElement('input');
+      lngInput.type = 'hidden';
+      lngInput.name = 'longitude';
+      lngInput.value = lng;
+      document.getElementById('locationForm').appendChild(lngInput);
+
+      // Do something with the latitude and longitude (e.g., store in PHP variables or send to the server)
+      console.log("Latitude: " + lat + ", Longitude: " + lng);
+    }
+
+    // Close the modal
+    $('#mapModal').modal('hide');
+  }
+
+  // Trigger initMap when the modal is shown
+  $('#mapModal').on('shown.bs.modal', function() {
+    initMap();
+  });
+
+  // Destroy search box when the modal is hidden
+  $('#mapModal').on('hidden.bs.modal', function() {
+    if (searchBox) {
+      searchBox.unbindAll();
+      searchBox = null;
+      $('#pac-input').remove();
+    }
+  });
+
+</script>
+
+
 </body>
 
 </html>
@@ -375,6 +537,9 @@ if(isset($_POST['submit'])){
   $ssecure=$_POST['ssecure'];
   $sothers=$_POST['sothers'];
   $sphoto=$_POST['sphoto'];
+  $lat=$_POST['latitude'];
+  $long=$_POST['longitude'];
+  //print_r($_POST);
   
   // this if for parking owner only.
   if(empty($vnum) || empty($vname) || empty($vphoto)){
@@ -387,7 +552,7 @@ if(isset($_POST['submit'])){
      $row= mysqli_fetch_assoc($result2);
      $uid=$row['UID'];
      $sql3 = "INSERT INTO `parkingspotdetails`(`UID`, `Plocation`, `Pcoordinate`, `Pphoto`, `Psize`, `Costhour`, `Security`, `Others`) 
-         VALUES ('$uid', '$slocation', ST_GeomFromText('POINT(40.71727401 -74.00898606)'), '../image/$sphoto', '$ssize', '$scost', '$ssecure', '$sothers')";
+         VALUES ('$uid', '$slocation', ST_GeomFromText('POINT($lat $long)'), '../image/$sphoto', '$ssize', '$scost', '$ssecure', '$sothers')";
 
      $result3=mysqli_query($conn,$sql3);
   }

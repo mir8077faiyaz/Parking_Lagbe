@@ -151,13 +151,19 @@ if(isset($_POST['submit'])) //submit from name
         $_SESSION["username"]=$fname;
         $_SESSION["email"] = $mail;
         echo "<script>window.location.replace('home.php')</script>";
-      }else{
+      }
+      elseif($mail=="admin@admin.com" && $password=="admin123"){
+        echo "<script>window.location.replace('about.php')</script>";
+      }
+      else{
           echo '<script>alert("Incorrect email or password!")</script>';
       }
-  
-    }else{
-        // error connecting to database
+    }
+   
+    else{
         echo "ERROR: $sql <br> $conn->error";
     }
-}
+
+  }
+
 ?>
