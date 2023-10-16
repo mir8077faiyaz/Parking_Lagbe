@@ -25,9 +25,14 @@ session_start();
   <body>
    <!--Navbar-->
    <?php
-  if(isset($_SESSION["username"]))
-  {
-    $user= $_SESSION["username"];
+   if(isset($_SESSION["username"]) || isset($_COOKIE["username"]))
+   {
+     if(isset($_SESSION["username"])){
+       $user= $_SESSION["username"];
+     }
+     else if(isset($_COOKIE["username"])){
+       $user=$_COOKIE["username"];
+     }
     echo '<nav class="navbar navbar-expand-lg navbar-light ">';
 
     echo '    <a class="navbar-brand" href="home.php">';

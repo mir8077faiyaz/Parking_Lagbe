@@ -3,8 +3,10 @@ session_start();
 
 //$_SESSION["email"];
 //$_SESSION["username"];
+echo $_COOKIE['email'];
 
 ?>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,9 +29,15 @@ session_start();
   <body>
     <!--Navbar-->
   <?php
-  if(isset($_SESSION["username"]))
-  {
-    $user= $_SESSION["username"];
+   if(isset($_SESSION["username"]) || isset($_COOKIE["username"]))
+   {
+     if(isset($_SESSION["username"])){
+       $user= $_SESSION["username"];
+     }
+     else if(isset($_COOKIE["username"])){
+       $user=$_COOKIE["username"];
+     }
+
     echo '<nav class="navbar navbar-expand-lg navbar-light ">';
 
     echo '    <a class="navbar-brand" href="home.php">';
@@ -59,7 +67,6 @@ session_start();
     echo '      </ul>';
     echo '    </div>';
     echo '  </nav>';
-    
     
 
   }

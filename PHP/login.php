@@ -1,10 +1,18 @@
 <?php
 require_once "connect.php";
 session_start();
+
 if(isset($_SESSION['email']))
 { 
   // Set a cookie
   setcookie('username', $_SESSION['username'], time() + (86400 * 30), "/");
+  setcookie('email', $_SESSION['email'], time() + (86400 * 30), "/");
+  header("location: home.php");// as the session is already set the user is logged in
+    exit;
+}
+if(isset($_COOKIE['username'])){
+  setcookie('username', $_COOKIE['username'], time() + (86400 * 30), "/");
+  setcookie('email', $_COOKIE['email'], time() + (86400 * 30), "/");
   header("location: home.php");// as the session is already set the user is logged in
     exit;
 }
