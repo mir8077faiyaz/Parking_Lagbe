@@ -2,8 +2,10 @@
 require_once "connect.php";
 session_start();
 if(isset($_SESSION['email']))
-{
-   header("location: home.php");// as the session is already set the user is logged in
+{ 
+  // Set a cookie
+  setcookie('username', $_SESSION['username'], time() + (86400 * 30), "/");
+  header("location: home.php");// as the session is already set the user is logged in
     exit;
 }
 ?>
@@ -150,7 +152,7 @@ if(isset($_POST['submit'])) //submit from name
         $fname=$row["Fname"];
         $_SESSION["username"]=$fname;
         $_SESSION["email"] = $mail;
-        echo "<script>window.location.replace('home.php')</script>";
+        echo "<script>window.location.replace('login.php')</script>";
       }
       elseif($mail=="admin@admin.com" && $password=="admin123"){
         echo "<script>window.location.replace('about.php')</script>";
