@@ -3,7 +3,7 @@ session_start();
 
 //$_SESSION["email"];
 //$_SESSION["username"];
-echo $_COOKIE['email'];
+//echo $_COOKIE['email'];
 
 ?>
 

@@ -6,6 +6,9 @@ if(isset($_SESSION['email']))
 {
    header("location: home.php");// as the session is already set the user is logged in
     exit;
+}else if(isset($_COOKIE['email'])){
+  header("location: home.php");// as the cookie is already set the user is logged in
+    exit;
 }
 
 error_reporting(E_ERROR | E_PARSE);

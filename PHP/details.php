@@ -201,7 +201,15 @@ echo '  </nav>';
       echo '      </div>';
 
       echo '    </div>';
-      $mail=$_SESSION['email'];
+      if(isset($_SESSION['email'])){
+        $mail=$_SESSION['email'];
+      }
+      else if(isset($_COOKIE['email'])){
+        $mail=$_COOKIE['email'];
+      }
+      else{
+        $mail="";
+      }
       $sql="Select * from `user` where Email='$mail'";
       $result=mysqli_query($conn,$sql);
       $row=mysqli_fetch_assoc($result);

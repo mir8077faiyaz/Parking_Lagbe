@@ -10,8 +10,15 @@ $sql = "UPDATE `activeparking` SET `Timestart`='{$_GET['strim']}:00:00', `Timeen
     $result=mysqli_query($conn,$sql);
     $sql4="INSERT INTO `activeparking`(`PID`, `Timestart`, `Timeend`, `Status`) VALUES ('$pid','00:00:00','00:00:00','open')";
     $result4=mysqli_query($conn,$sql4);
-
-    $mail=$_SESSION['email'];
+    if(isset($_SESSION['email'])){
+        $mail=$_SESSION['email'];
+      }
+      else if(isset($_COOKIE['email'])){
+        $mail=$_COOKIE['email'];
+      }
+      else{
+        $mail="";
+      }
     $sql="Select * from `user` where Email='$mail'";
     $result=mysqli_query($conn,$sql);
     $row=mysqli_fetch_assoc($result);
