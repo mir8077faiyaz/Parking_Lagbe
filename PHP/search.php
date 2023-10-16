@@ -252,7 +252,7 @@ echo '  </nav>';
               echo 'class="btn btn-primary">View Details</a>';
               echo '</div>';
               echo '</div>';
-              $nosearch=1;
+              $nosearch=1;//flag to ensure a loc is shown once
             }
            
           }
