@@ -10,7 +10,7 @@ $stripe_secret_key='sk_test_51NzEY4BWLHJ5D08gs3G5PMW582O43H6fkj0VpNVCWI2YNAo5nIM
 
 $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
 $base_url .= "://" . $_SERVER['HTTP_HOST'];
-$success_url = $base_url . "/plz/PHP/success.php?pid={$_POST['pid']}&strim={$_POST['strim']}&etrim={$_POST['etrim']}&totalcost={$_POST['totalcost']}&totalhrs={$_POST['totalhrs']}";
+$success_url = $base_url . "/ParkingLagbe/PHP/success.php?pid={$_POST['pid']}&strim={$_POST['strim']}&etrim={$_POST['etrim']}&totalcost={$_POST['totalcost']}&totalhrs={$_POST['totalhrs']}";
 
 $checkout_session = \Stripe\Checkout\Session::create([
     "mode" => "payment",/* mode payment means one time payment */
