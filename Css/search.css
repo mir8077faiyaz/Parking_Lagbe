@@ -1,122 +1,291 @@
 body {
-    background-color: rgba(153, 191, 151, 0.4) !important;
-    /*important overrides bootstrap css*/
-    height: 100% !important;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-nav {
-    display: block;
-    background-color: #092039 !important;
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+
+.myfoot {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: sticky;
+    bottom: 0;
+}
+
+nav.navbar.navbar-expand-lg.navbar-light {
+    flex-direction: column;
+    height: 120px;
 
 }
 
-.nav-link {
-    color: rgba(153, 191, 151, 1) !important;
+li {
+    padding-left: 25px;
 }
 
 .navbar-brand {
-    color: rgba(153, 191, 151, 1) !important;
+    margin-left: 45px;
 
 }
+
+.navbar-brand h1 {
+    color: white;
+}
+
+.nav-link {
+    color: rgb(255, 255, 255) !important;
+}
+
+
+.navbar {
+    /* background-color: rgb(176, 140, 106);      */
+    background-color: #333;
+    color: white;
+
+}
+
+.randheight {
+    margin-top: 150px;
+}
+
 
 .search {
-    height: 100px;
+    margin-top: 25px;
+    height: 300px;
     width: 250px;
-    background-color: transparent;
-    margin-left: 15px;
-    color: rgb(4, 4, 4);
+    background-color: #333;
+    margin-left: 30px;
+    color: rgb(34, 27, 2);
 }
 
-.cardflex {
-    margin-top: 250px;
-    margin-left: 35px;
+/* .cardflex {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+} */
+
+.card-text {
+    font-size: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+}
+
+.carddiv {
+    display: flex !important;
+    justify-content: space-around !important;
 }
 
 .form-group {
     width: 180px;
     margin-left: 35px;
+    margin-bottom: 0px !important;
+    color: cornsilk;
+
 }
 
 .btn {
     margin-top: 10px;
     height: 40px;
-    width: 180px !important;
-    margin-left: 35px !important;
+    width: 180px;
+    background-color: cornsilk;
+    color: #333;
+    font-family: 'Times New Roman', Times, serif;
+    font: bold;
 }
 
 .btn-primary {
     margin-left: 0px !important;
 }
 
-.myfoot {
-    color: rgba(153, 191, 151, 1);
-    margin-top: 500px;
-    background-color: #092039;
-    display: flex;
-    justify-content: center;
-    height: 150px;
-    align-items: center;
+label {
+    margin-top: 8px;
+    margin-bottom: 2px;
 }
 
 
-@media (min-width: 992px) {
+
+@media (max-width: 992px) {
+    .navbar-toggler {
+        margin-top: 20px;
+        margin-left: -30px;
+        /* Adjust the margin for the mobile menu button */
+        display: block;
+        padding: 0;
+    }
+
+    .navbar-toggler-icon {
+        background-color: white;
+    }
+}
 
 
+
+
+@media (max-width: 391px) {
+
+    /* Navbar adjustments */
     nav.navbar.navbar-expand-lg.navbar-light {
         flex-direction: column;
-        height: 120px;
+        height: auto;
+    }
 
+    .navbar-toggler {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+
+    .navbar-collapse {
+        padding: 0;
+        flex-basis: 0% !important;
+    }
+
+    .nav-item {
+        margin: 5px 0;
+    }
+
+    .navbar-brand {
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .navbar-brand h1 {
+        font-size: 1.5rem;
+    }
+
+    /* Form adjustments */
+    .form-group {
+        padding: 5px;
+        /* Adjust the padding for form groups */
+    }
+
+    form {
+        background-color: rgba(18, 11, 1, 0.471);
+        height: auto;
+        padding: 10px;
+        /* Increase padding for the form */
+    }
+
+    /* Search button adjustments */
+    .custom-btn-color {
+        background-color: #0f0404ab;
+        color: #ffffff;
+        width: 100%;
+    }
+
+    /* Toggler content adjustments */
+    .navbar-toggler {
+        margin-top: 10px;
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .navbar-toggler-icon {
+        background-color: white;
+    }
+}
+
+@media (max-width:992px) {
+
+    .nav-link {
+        display: block;
+        padding: 0rem 1rem !important;
     }
 
     li {
-        padding-left: 15px;
+        padding-left: 0px !important;
     }
+}
 
+@media (max-width: 810px) {
     .search {
-        margin-top: 25px;
-        height: 300px;
-        background-color: rgba(153, 191, 151, 1);
-        margin-left: 30px;
-        color: rgb(34, 27, 2);
-    }
-
-    .btn {
-        margin-top: 10px;
-        height: 40px;
-        width: 250px;
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+        height: 350px;
     }
 
     .form-group {
-        margin-bottom: 0px !important;
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 10px !important;
     }
 
-    label {
-        margin-top: 8px;
-        margin-bottom: 2px !important;
-    }
-
-
-
-    .myfoot {
-        color: rgba(153, 191, 151, 1);
-        margin-top: 120px;
-        background-color: #092039;
-        display: flex;
-        justify-content: center;
-        height: 150px;
-        align-items: center;
+    .btn {
+        width: 100%;
+        margin-left: 0;
     }
 
     .carddiv {
-        display: flex !important;
-        justify-content: space-around !important;
+        margin-top: 10px;
+    }
+}
 
+@media (max-width: 654px) {
+    .search {
+        width: 100%;
+        margin: 0;
+        padding: 10px;
     }
 
-    .cardflex {
-        margin-top: 0px !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
+
+    /* Form adjustments */
+    .form-group {
+        padding: 5px;
+        /* Adjust the padding for form groups */
     }
+
+    form.search {
+        background-color: rgba(18, 11, 1, 0.471);
+        height: auto;
+        padding: 10px;
+        /* Increase padding for the form */
+    }
+
+    /* Search button adjustments */
+    .btn {
+        width: 100%;
+        margin-left: 0;
+    }
+
+}
+
+/* Media Query for screens below 655px */
+@media (max-width: 655px) {
+    .responsive-btn {
+        width: 100%;
+        font-size: 14px; /* Adjust font size as needed */
+        margin-bottom: 15px;
+    }
+    .res-card {
+        flex-direction: column-reverse !important; /* Reverse the order for smaller screens */
+        align-items: center; /* Center the content */
+      }
+    
+      .card-body img {
+        margin-bottom: 10px; /* Add some space between the image and the button */
+      }
+      .parking-image {
+        max-width: 100%;
+        height: auto; /* This ensures the image's height scales proportionally with its width */
+        display: block; /* Removes extra space below inline images */
+    }
+    
+}
+
+.res-card{
+    display: flex;
+    flex-direction: row;
+    /* Additional flex properties if needed */
+    /* justify-content: space-between; Adjust as needed */
+    align-items: center; /* Adjust as needed */
 }

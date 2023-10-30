@@ -1,169 +1,142 @@
 body {
-    background-color: rgba(153, 191, 151, 0.4) !important;
-    /*important overrides bootstrap css*/
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.jumbo {
-    height: 810px;
-    background-image: url("../image/jumbotron_bg.jpg") !important;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.search {
-    height: 100px;
-    width: 350px;
-    background-color: transparent;
-    margin-left: 30px;
-    color: cornsilk;
-}
-
-.formz {
-    justify-content: center !important;
-    margin-bottom: 200px !important;
-    margin-left: 20px !important;
-}
-
-nav {
-    display: block;
-    background-color: #092039 !important;
-
-}
-
-.nav-link {
-    color: rgba(153, 191, 151, 1) !important;
-}
-
-.navbar-brand {
-    color: rgba(153, 191, 151, 1) !important;
-
+.content {
+    flex: 1;
+    padding: 20px;
 }
 
 .myfoot {
-    color: rgba(153, 191, 151, 1);
-    margin-top: 700px;
-    background-color: #092039;
-    display: flex;
-    justify-content: center;
-    height: 150px;
-    align-items: center;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    /* position: sticky; */
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
-.form-group {
-    width: 180px;
-    margin-left: 40px;
+nav.navbar.navbar-expand-lg.navbar-light {
+    flex-direction: column;
+    height: 120px;
+
 }
 
-.btn {
-    margin-top: 10px;
-    height: 40px;
-    width: 180px !important;
-    margin-left: -210px !important;
+li {
+    padding-left: 25px;
 }
 
-@media (min-width: 992px) {
+.navbar-brand {
+    margin-left: 45px;
+
+}
+
+.navbar-brand h1 {
+    color: white;
+}
+
+.nav-link {
+    color: rgb(255, 255, 255) !important;
+}
 
 
+.navbar {
+    /* background-color: rgb(176, 140, 106);      */
+    background-color: #333;
+    color: white;
+
+}
+
+.randheight {
+    margin-top: 100px;
+}
+
+
+/* .custom-btn-color{
+    background-color: #0f0404ab; 
+    color: #ffffff; 
+} */
+
+
+@media (max-width: 992px) {
+    .navbar-toggler {
+        margin-top: 20px;
+        margin-left: -30px;
+        /* Adjust the margin for the mobile menu button */
+        display: block;
+        padding: 0;
+    }
+
+    .navbar-toggler-icon {
+        background-color: white;
+    }
+}
+
+
+@media (max-width: 391px) {
+
+    /* Navbar adjustments */
     nav.navbar.navbar-expand-lg.navbar-light {
         flex-direction: column;
-        height: 120px;
-
+        height: auto;
     }
 
-    li {
-        padding-left: 15px;
-    }
-
-    .search {
-        height: 100px;
-        width: 250px;
-        background-color: transparent;
-        margin-left: 30px;
-        color: cornsilk;
-    }
-
-    .btn {
+    .navbar-toggler {
         margin-top: 10px;
-        height: 40px;
-        width: 250px;
-        margin-left: 0px !important;
+        margin-left: 0;
     }
 
-    .form-group {
-        margin-bottom: 0px !important;
+    .navbar-collapse {
+        padding: 0;
+        flex-basis: 0% !important;
     }
 
-    label {
-        margin-top: 8px;
-        margin-bottom: 2px !important;
-    }
-
-    .nav-link {
-        color: rgba(153, 191, 151, 1) !important;
+    .nav-item {
+        margin: 5px 0;
     }
 
     .navbar-brand {
-        color: rgba(153, 191, 151, 1) !important;
-        margin: 0 !important;
-        padding: 0 !important;
-
+        text-align: center;
+        margin-left: 0;
     }
 
-    .jumbo {
-        height: 810px;
-        background-image: url("../image/jumbotron_bg.jpg") !important;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+    .navbar-brand h1 {
+        font-size: 1.5rem;
     }
 
-    .formz {
-        margin-bottom: 200px !important;
-        margin-left: 20px !important;
+    /* Search button adjustments */
+    .custom-btn-color {
+        background-color: #0f0404ab;
+        color: #ffffff;
+        width: 100%;
     }
 
-    .mask {
-        height: 300px !important;
-        width: 350px !important;
+    /* Toggler content adjustments */
+    .navbar-toggler {
+        margin-top: 10px;
+        margin-left: 0;
+        padding: 0;
     }
 
-
-
-    .myfoot {
-        color: rgba(153, 191, 151, 1);
-        margin-top: 400px;
-        background-color: #092039;
-        display: flex;
-        justify-content: center;
-        height: 150px;
-        align-items: center;
-    }
-
-
-    .card {
-        margin-left: 80px !important;
-        margin-right: 80px !important;
-    }
-
-    .card-img-top {
-        height: 350px;
-        padding: 0px;
-
+    .navbar-toggler-icon {
+        background-color: white;
     }
 }
 
-@media (min-width: 597px) {
-    .btn {
-        margin-top: 10px;
-        margin-right: 150px !important;
-        height: 40px;
-        width: 250px;
+@media (max-width:992px) {
+
+    .nav-link {
+        display: block;
+        padding: 0rem 1rem !important;
     }
 
-    .formz {
-        margin-bottom: 200px !important;
-        margin-left: 20px !important;
+    li {
+        padding-left: 0px !important;
     }
-
 }

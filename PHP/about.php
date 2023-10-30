@@ -12,7 +12,7 @@ session_start();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--always connect to external css using :    ..\relative path-->
-    <link rel="stylesheet" type="text/css" href="../css/about.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/about.css" />
 
     <!-- Bootstrap CSS -->
 
@@ -137,7 +137,7 @@ echo '  </nav>';
         update feature, the parking availability is automatically updated.
       </p>
     </div>
-
+    <div class="randheight"></div>
     <footer class="myfoot">
       <p>
         ©&nbsp;Parking Lagbe 2023 &nbsp;| Developed by Shajreen, Mir and Abrar

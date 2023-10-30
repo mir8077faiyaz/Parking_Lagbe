@@ -26,7 +26,7 @@ if(isset($_COOKIE['username'])){
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--always connect to external css using :    ..\relative path-->
-    <link rel="stylesheet" type="text/css" href="../css/login.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/login.css" />
 
     <!-- Bootstrap CSS -->
 
@@ -80,7 +80,7 @@ if(isset($_COOKIE['username'])){
       <div class="container  h-100"> 
         <div class="row d-flex justify-content-center align-items-top mt-4 h-100">
           <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card bg-dark text-white" style="border-radius: 1rem; margin-left: 35px;margin-right: 35px; height: 450px;">
+            <div class="card text-white" style=" border-radius: 1rem; margin-left: 35px;margin-right: 35px; height: 450px;">
               <div class="card-body p-3 py-2 text-center">
     
                 <div class="mb-md-3 mt-md-2">
@@ -116,6 +116,8 @@ if(isset($_COOKIE['username'])){
       </div>
     </section>
 <!--Footer-->
+
+<div class="randheight"></div>
     <footer class="myfoot">
       <p>©&nbsp;Parking Lagbe 2023 &nbsp;| Developed by Shajreen, Mir and Abrar</p>
     </footer>
@@ -160,10 +162,13 @@ if(isset($_POST['submit'])) //submit from name
         $fname=$row["Fname"];
         $_SESSION["username"]=$fname;
         $_SESSION["email"] = $mail;
+        $_SESSION["uemail"] = $mail;
         echo "<script>window.location.replace('login.php')</script>";
       }
       elseif($mail=="admin@admin.com" && $password=="admin123"){
-        echo "<script>window.location.replace('about.php')</script>";
+        $_SESSION["username"]="admin";
+        $_SESSION["email"] = "admin@admin.com";
+        echo "<script>window.location.replace('admin.php')</script>";
       }
       else{
           echo '<script>alert("Incorrect email or password!")</script>';

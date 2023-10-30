@@ -15,7 +15,7 @@ error_reporting(E_ERROR | E_PARSE);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--always connect to external css using :    ..\relative path-->
-    <link rel="stylesheet" type="text/css" href="../css/details.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/details.css" />
     <!-- Bootstrap CSS -->
 
     <link
@@ -24,14 +24,7 @@ error_reporting(E_ERROR | E_PARSE);
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous"
     />
-    <style>
-    #map{
-      height: 400px;
-      width: 70%;
-      margin-top:40px;
-      margin-left:60px;
-    }
-  </style>
+
     <title>Parking Details</title>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpq_AT05oYjZcuMcsLuH_NLeKdZDJSLTU&callback=initMap" async defer></script>
 
@@ -180,7 +173,6 @@ echo '  </nav>';
 
         $etrim=rtrim($end, '0');
         $etrim=$etrim.'0';
-        echo $etrim;
       }
       else{
         $etrim=rtrim($end, '0');
@@ -215,7 +207,7 @@ echo '  </nav>';
       $row=mysqli_fetch_assoc($result);
       $vowner=$row['VOwner'];
       if($vowner=="yes"){
-        echo "    <div><a href='payment.php?start=$strim&end=$etrim&pid=$pid&cost=$totalcost&hour=$totalhrs'class='btn btn-primary'>Book Spot</a></div>";
+        echo "    <div><a href='payment.php?start=$strim&end=$etrim&pid=$pid&cost=$totalcost&hour=$totalhrs'class='btn btn-dark'>Book Spot</a></div>";
       }else{
         echo "    <div><a href='register.php'class='btn btn-dark'>Reg as V-Owner</a></div>";
       }
@@ -224,7 +216,9 @@ echo '  </nav>';
       echo '</div>';
       ?>
 
-
+<div class="randheight">
+  
+</div>
 
 
     <footer class="myfoot">

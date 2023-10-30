@@ -14,7 +14,7 @@ session_start();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!--always connect to external css using :    ..\relative path-->
-  <link rel="stylesheet" type="text/css" href="../css/search.css" />
+  <link rel="stylesheet" type="text/css" href="../Css/search.css" />
 
   <!-- Bootstrap CSS -->
 
@@ -101,65 +101,60 @@ echo '  </nav>';
   }
 
   ?>
-  <!--jhamela-->
+ 
   <div class="container-fluid carddiv">
     <div>
       <form class="search" method="post">
-        <div class="form-group">
-          <label for="exampleFormControlInput1">Location</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="banani,dhaka,bangladesh"
-            required name="location" />
+      <div class="form-group">
+          <label for="exampleFormControlInput1">Location &nbsp;</label> 
+          <input type="text" class="form-control" id="exampleFormControlInput1"
+              placeholder="Banani, Dhaka" required name="location"
+              value="<?php echo isset($_POST['location']) ? $_POST['location'] : ''; ?>" />
         </div>
-        <div class="form-group" id="startTimeSelect">
-          <label for="exampleFormControlSelect1">Start Time</label>
-          <select class="form-control" id="exampleFormControlSelect1" name="starttime" id="startTimeSelect">
-            <option>06:00:00</option>
-            <option>07:00:00</option>
-            <option>08:00:00</option>
-            <option>09:00:00</option>
-            <option>10:00:00</option>
-            <option>11:00:00</option>
-            <option>12:00:00</option>
-            <option>13:00:00</option>
-            <option>14:00:00</option>
-            <option>15:00:00</option>
-            <option>16:00:00</option>
-            <option>17:00:00</option>
-            <option>18:00:00</option>
-            <option>19:00:00</option>
-            <option>20:00:00</option>
-            <option>21:00:00</option>
-            <option>22:00:00</option>
-            <option>23:00:00</option>
-          </select>
-        </div>
-        <div class="form-group" id="endTimeSelect">
-          <label for="exampleFormControlSelect1">End Time</label>
-          <select class="form-control" id="exampleFormControlSelect1" name="endtime" >
-            <option>06:00:00</option>
-            <option>07:00:00</option>
-            <option>08:00:00</option>
-            <option>09:00:00</option>
-            <option>10:00:00</option>
-            <option>11:00:00</option>
-            <option>12:00:00</option>
-            <option>13:00:00</option>
-            <option>14:00:00</option>
-            <option>15:00:00</option>
-            <option>16:00:00</option>
-            <option>17:00:00</option>
-            <option>18:00:00</option>
-            <option>19:00:00</option>
-            <option>20:00:00</option>
-            <option>21:00:00</option>
-            <option>22:00:00</option>
-            <option>23:00:00</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-danger form-group" name="submit">Search</button>
+       <!-- Start Time Select -->
+<div class="form-group" id="startTimeSelect">
+  <label for="exampleFormControlSelect1">Start Time</label>
+  <select class="form-control" id="exampleFormControlSelect1" name="starttime">
+    <?php
+      $startTimes = [
+        "06:00:00", "07:00:00", "08:00:00", "09:00:00", "10:00:00",
+        "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00",
+        "16:00:00", "17:00:00", "18:00:00", "19:00:00", "20:00:00",
+        "21:00:00", "22:00:00", "23:00:00"
+      ];
+
+      foreach ($startTimes as $startTime) {
+        $selected = (isset($_POST['starttime']) && $_POST['starttime'] == $startTime) ? 'selected' : '';
+        echo "<option $selected>$startTime</option>";
+      }
+    ?>
+  </select>
+</div>
+
+<!-- End Time Select -->
+<div class="form-group" id="endTimeSelect">
+  <label for="exampleFormControlSelect1">End Time</label>
+  <select class="form-control" id="exampleFormControlSelect1" name="endtime">
+    <?php
+      $endTimes = [
+        "06:00:00", "07:00:00", "08:00:00", "09:00:00", "10:00:00",
+        "11:00:00", "12:00:00", "13:00:00", "14:00:00", "15:00:00",
+        "16:00:00", "17:00:00", "18:00:00", "19:00:00", "20:00:00",
+        "21:00:00", "22:00:00", "23:00:00"
+      ];
+
+      foreach ($endTimes as $endTime) {
+        $selected = (isset($_POST['endtime']) && $_POST['endtime'] == $endTime) ? 'selected' : '';
+        echo "<option $selected>$endTime</option>";
+      }
+    ?>
+  </select>
+</div>
+
+        <button type="submit" class="btn form-group" name="submit">Search</button>
       </form>
     </div>
-    <div class="cardflex" style="width: 75%;">
+    <div class="cardflex" style="width: 70%;">
       <!--PHP HERE-->
       <?php 
         //echo date("h:00:00", time());
@@ -239,17 +234,20 @@ echo '  </nav>';
             if($bookflag==1){
               echo '<div class="card mt-4">';
               echo '<div class="card-header">';
-              echo $row['Plocation'];
+              echo "<h5>" . $row['Plocation'] . "</h5>";
               echo '</div>';
-              echo '<div class="card-body">';
+              echo '<div class="card-body res-card ">';
               $img=$row['Pphoto'];
-              echo "<img src='$img'  "; //needs styling
+              echo "<img src='$img' class='parking-image' "; //needs styling
               echo "alt='Parking Spot Image'>";
+              echo '<div class="d-flex flex-column ml-3">';
+
               echo "<p class='card-text'>Cost per hour:";
               echo $row['Costhour'];
               echo "</p>";
-              echo "<a href='details.php?pid=$pid&start=$start&end=$end'";
-              echo 'class="btn btn-primary">View Details</a>';
+              echo "<a href='details.php?pid=$pid&start=$start&end=$end' class='btn btn-dark responsive-btn' style=\"font-family: 'Times New Roman', Times, Bangla760, serif;\">View Details</a>";
+
+              echo '</div>';
               echo '</div>';
               echo '</div>';
               $nosearch=1;//flag to ensure a loc is shown once
@@ -265,6 +263,7 @@ echo '  </nav>';
       ?>
     </div>
   </div>
+  <div class="randheight">
 
   <footer class="myfoot">
     <p>©&nbsp;Parking Lagbe 2023 &nbsp;| Developed by Shajreen, Mir and Abrar</p>

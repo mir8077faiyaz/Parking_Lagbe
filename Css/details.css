@@ -1,39 +1,63 @@
 body {
-    background-color: rgba(153, 191, 151, 0.4) !important;
-    /*important overrides bootstrap css*/
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-nav {
-    display: block;
-    background-color: #092039 !important;
+.myfoot {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: sticky;
+    bottom: 0;
+}
+
+nav.navbar.navbar-expand-lg.navbar-light {
+    flex-direction: column;
+    height: 120px;
 
 }
 
-.nav-link {
-    color: rgba(153, 191, 151, 1) !important;
+li {
+    padding-left: 25px;
 }
 
 .navbar-brand {
-    color: rgba(153, 191, 151, 1) !important;
+    margin-left: 45px;
+
+}
+
+.navbar-brand h1 {
+    color: white;
+}
+
+.nav-link {
+    color: rgb(255, 255, 255) !important;
+}
+
+
+.navbar {
+    /* background-color: rgb(176, 140, 106);      */
+    background-color: #333;
+    color: white;
 
 }
 
 .image1 {
-    margin-left: 120px;
+    margin-left: 60px;
     margin-top: 20px;
     height: auto !important;
     width: auto !important;
 
 }
 
-.myfoot {
-    color: rgba(153, 191, 151, 1);
-    margin-top: 130px;
-    background-color: #092039;
+
+.deets {
     display: flex;
-    justify-content: center;
-    height: 150px;
-    align-items: center;
+    justify-content: flex-start;
 }
 
 .location-flex {
@@ -41,105 +65,142 @@ nav {
 }
 
 .more-deets {
-    margin-left: 0 !important;
-
+    margin-left: 100px !important;
 }
 
 
+.btn {
+    margin-top: 10px;
+    height: 40px;
+    width: 180px !important;
+    margin-left: 100px !important;
+}
 
-@media (min-width: 992px) {
+.location {
+    margin-top: 20px;
+    margin-left: 100px;
+    align-items: flex-start !important;
+}
+
+.location h4 {
+    margin-top: 0;
+}
+
+.location-flex {
+
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+hr {
+    border: 5px;
+    clear: both;
+    width: 80%;
+    background-color: #0e0e01;
+    height: 2px;
+}
+
+.randheight {
+    margin-top: 80px;
+}
+
+#map {
+    height: 60%;
+    width: 69%;
+    margin-top: 40px;
+    margin-left: 60px;
+}
 
 
+@media (max-width: 391px) {
+
+    /* Navbar adjustments */
     nav.navbar.navbar-expand-lg.navbar-light {
         flex-direction: column;
-        height: 120px;
+        height: auto;
     }
 
-    li {
-        padding-left: 15px;
+    .navbar-toggler {
+        margin-top: 10px;
+        margin-left: 0;
     }
 
+    .navbar-collapse {
+        padding: 0;
+        flex-basis: 0% !important;
+    }
 
-    .nav-link {
-        color: rgba(153, 191, 151, 1) !important;
+    .nav-item {
+        margin: 5px 0;
     }
 
     .navbar-brand {
-        color: rgba(153, 191, 151, 1) !important;
-        margin: 0 !important;
-        padding: 0 !important;
+        text-align: center;
+        margin-left: 0;
     }
 
-    .myfoot {
-        color: rgba(153, 191, 151, 1);
-        margin-top: 400px;
-        background-color: #092039;
-        display: flex;
-        justify-content: center;
-        height: 150px;
-        align-items: center;
+    .navbar-brand h1 {
+        font-size: 1.5rem;
     }
 
-    .image1 {
-        margin-left: 120px;
-        margin-top: 20px;
-        height: 280px !important;
-        width: 280px !important;
 
+    /* Search button adjustments */
+    .custom-btn-color {
+        background-color: #0f0404ab;
+        color: #ffffff;
+        width: 100%;
     }
 
-    .btn {
+    /* Toggler content adjustments */
+    .navbar-toggler {
         margin-top: 10px;
-        height: 40px;
-        width: 180px !important;
-        margin-left: 100px !important;
+        margin-left: 0;
+        padding: 0;
     }
 
+    .navbar-toggler-icon {
+        background-color: white;
+    }
+}
+
+@media (max-width:992px) {
+
+    .nav-link {
+        display: block;
+        padding: 0rem 1rem !important;
+    }
+
+    li {
+        padding-left: 0px !important;
+    }
+}
+
+
+@media (max-width: 884px) {
+
+    /* Additional styles for screens with a width less than 884px */
     .deets {
-        display: flex;
-        justify-content: flex-start;
-    }
-
-    .location {
-        margin-top: 20px;
-        margin-left: 100px;
-        align-items: flex-start !important;
-    }
-
-    .location h4 {
-        margin-top: 0;
-    }
-
-    .location-flex {
-
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: column;
-    }
-
-    hr {
-        border: 5px;
-        clear: both;
-        width: 80%;
-        background-color: #0e0e01;
-        height: 2px;
+        flex-direction: column-reverse;
     }
 
     .more-deets {
-        margin-left: 100px !important;
+        text-align: left;
     }
 
-
-}
-
-@media (min-width: 597px) {
-    .myfoot {
-        color: rgba(153, 191, 151, 1);
-        margin-top: 400px;
-        background-color: #092039;
-        display: flex;
-        justify-content: center;
-        height: 150px;
-        align-items: center;
+    .btn {
+        width: auto;
     }
+
+    #map {
+        height: 60%;
+        /* Adjust the height to your preference */
+        width: 100%;
+        /* Adjust the width to your preference */
+        margin-top: 20px;
+        margin-left: 60%;
+        margin-bottom: 150px;
+        /* Adjust the margin to center the map */
+    }
+
 }

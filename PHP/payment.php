@@ -14,7 +14,7 @@ session_start();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!--always connect to external css using :    ..\relative path-->
-  <link rel="stylesheet" type="text/css" href="../css/payment.css" />
+  <link rel="stylesheet" type="text/css" href="../Css/payment.css" />
 
   <!-- Bootstrap CSS -->
 
@@ -160,7 +160,7 @@ echo '  </nav>';
  echo "            <td>$etrim:00</td>";
  echo "            <td>$totalhrs</td>";
  echo "            <td>$totalcost</td>";
- echo "            <td><button type=\"submit\" name=\"submit\" class=\"btn btn-danger\">Confirm Payment</button></td>";
+ echo "            <td><button type=\"submit\" name=\"submit\" class=\"btn btn-dark\">Confirm Payment</button></td>";
  echo "<input type='hidden' name='strim' value='$strim'>";
 echo "<input type='hidden' name='etrim' value='$etrim'>";
 echo "<input type='hidden' name='location' value='$location'>";
@@ -177,7 +177,9 @@ echo "<input type='hidden' name='pid' value='$pid'>";
  echo "</form>";
 
  ?>
-
+<div class="randheight">
+  
+  </div>
 
   <footer class="myfoot">
     <p>

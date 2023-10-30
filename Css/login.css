@@ -1,81 +1,138 @@
 body {
-    background-color: rgba(153, 191, 151, 0.4) !important;
-    /*important overrides bootstrap css*/
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: black !important;
 }
 
-nav {
-    display: block;
-    background-color: #092039 !important;
-
-}
-
-.nav-link {
-    color: rgba(153, 191, 151, 1) !important;
-}
-
-.navbar-brand {
-    color: rgba(153, 191, 151, 1) !important;
-
+.content {
+    flex: 1;
+    padding: 20px;
 }
 
 .myfoot {
-    color: rgba(153, 191, 151, 1);
-    margin-top: 100px;
-    background-color: #092039;
-    display: flex;
-    justify-content: center;
-    height: 150px;
-    align-items: center;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: sticky;
+    bottom: 0;
+}
+
+nav.navbar.navbar-expand-lg.navbar-light {
+    flex-direction: column;
+    height: 120px;
+
+}
+
+li {
+    padding-left: 25px;
+}
+
+.navbar-brand {
+    margin-left: 45px;
+
+}
+
+.navbar-brand h1 {
+    color: white;
+}
+
+.nav-link {
+    color: rgb(255, 255, 255) !important;
 }
 
 
-@media (min-width: 992px) {
+.navbar {
+    /* background-color: rgb(176, 140, 106);      */
+    background-color: #333;
+    color: white;
+
+}
+
+.randheight {
+    margin-top: 70px;
+}
+
+.card {
+    background-color: #333 !important;
+}
 
 
+@media (max-width: 391px) {
+
+    /* Navbar adjustments */
     nav.navbar.navbar-expand-lg.navbar-light {
         flex-direction: column;
-        height: 120px;
-
+        height: auto;
     }
 
-    .nav-link {
-        color: rgba(153, 191, 151, 1) !important;
+    .navbar-toggler {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+
+    .navbar-collapse {
+        padding: 0;
+        flex-basis: 0% !important;
+    }
+
+    .nav-item {
+        margin: 5px 0;
     }
 
     .navbar-brand {
-        color: rgba(153, 191, 151, 1) !important;
-        margin: 0 !important;
-        padding: 0 !important;
-
+        text-align: center;
+        margin-left: 0;
     }
 
-    .myfoot {
-        color: rgba(153, 191, 151, 1);
-        margin-top: -100px;
-        background-color: #092039;
-        display: flex;
-        justify-content: center;
-        height: 150px;
-        align-items: center;
+    .navbar-brand h1 {
+        font-size: 1.5rem;
     }
 
+    /* Form adjustments */
     .form-group {
-        width: 300px;
-        justify-content: center !important;
-
+        padding: 5px;
+        /* Adjust the padding for form groups */
     }
 
-    /* .btn {
-        margin-left: 120px;
-        margin-top: 0px;
-    } */
-    .lgbtn {
-        margin-top: 0px !important;
-        margin-bottom: 0px !important;
+    form {
+        background-color: rgba(18, 11, 1, 0.471);
+        height: auto;
+        padding: 10px;
+        /* Increase padding for the form */
+    }
+
+    /* Search button adjustments */
+    .custom-btn-color {
+        background-color: #0f0404ab;
+        color: #ffffff;
+        width: 100%;
+    }
+
+    /* Toggler content adjustments */
+    .navbar-toggler {
+        margin-top: 10px;
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .navbar-toggler-icon {
+        background-color: white;
+    }
+}
+
+@media (max-width:992px) {
+
+    .nav-link {
+        display: block;
+        padding: 0rem 1rem !important;
     }
 
     li {
-        padding-left: 15px;
+        padding-left: 0px !important;
     }
 
 

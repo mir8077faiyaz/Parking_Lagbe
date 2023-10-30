@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2023 at 11:21 PM
+-- Generation Time: Oct 28, 2023 at 09:36 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -28,7 +28,6 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `activeparking` (
-  `OID` int(11) NOT NULL,
   `PID` int(11) NOT NULL,
   `Timestart` time NOT NULL,
   `Timeend` time NOT NULL,
@@ -39,18 +38,12 @@ CREATE TABLE `activeparking` (
 -- Dumping data for table `activeparking`
 --
 
-INSERT INTO `activeparking` (`OID`, `PID`, `Timestart`, `Timeend`, `Status`) VALUES
-(9, 15, '00:00:00', '00:00:00', 'open'),
-(11, 17, '00:00:00', '00:00:00', 'open'),
-(12, 18, '00:00:00', '00:00:00', 'open'),
-(13, 19, '00:00:00', '00:00:00', 'open'),
-(14, 20, '09:00:00', '21:00:00', 'booked'),
-(15, 21, '00:00:00', '00:00:00', 'open'),
-(16, 22, '00:00:00', '00:00:00', 'open'),
-(17, 23, '00:00:00', '00:00:00', 'open'),
-(18, 16, '00:00:00', '00:00:00', 'open'),
-(19, 16, '00:00:00', '00:00:00', 'open'),
-(20, 20, '00:00:00', '00:00:00', 'open');
+INSERT INTO `activeparking` (`PID`, `Timestart`, `Timeend`, `Status`) VALUES
+( 26, '16:00:00', '18:00:00', 'booked'),
+( 27, '00:00:00', '00:00:00', 'open'),
+(25, '00:00:00', '00:00:00', 'open'),
+( 28, '00:00:00', '00:00:00', 'open'),
+( 26, '00:00:00', '00:00:00', 'open');
 
 -- --------------------------------------------------------
 
@@ -59,13 +52,19 @@ INSERT INTO `activeparking` (`OID`, `PID`, `Timestart`, `Timeend`, `Status`) VAL
 --
 
 CREATE TABLE `parkinghistory` (
-  `OID` int(11) NOT NULL,
   `VID` int(11) NOT NULL,
   `PID` int(11) NOT NULL,
   `Date` date NOT NULL,
   `TotalHours` int(11) NOT NULL,
   `TotalCost` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `parkinghistory`
+--
+
+INSERT INTO `parkinghistory` (`VID`, `PID`, `Date`, `TotalHours`, `TotalCost`) VALUES
+(3, 26, '2023-10-28', 2, 60);
 
 -- --------------------------------------------------------
 
@@ -90,15 +89,11 @@ CREATE TABLE `parkingspotdetails` (
 --
 
 INSERT INTO `parkingspotdetails` (`PID`, `UID`, `Plocation`, `Pcoordinate`, `Pphoto`, `Psize`, `Costhour`, `Security`, `Others`) VALUES
-(15, 23, 'road 2, banani, dhaka', 0x000000000101000000429c7fa2cf5b44407974443a938052c0, '../image/bmw.jpeg', '220sqft', 30, 'cam', 'nai'),
-(16, 24, 'banani dohs', 0x000000000101000000429c7fa2cf5b44407974443a938052c0, '../image/parking 2.jpg', '220sqft', 50, 'cam', 'nai'),
-(17, 25, 'banani super market', 0x000000000101000000429c7fa2cf5b44407974443a938052c0, '../image/parking1.jpg', '225', 20, 'cam', 'nai'),
-(18, 26, 'dhanmondi 2', 0x000000000101000000429c7fa2cf5b44407974443a938052c0, '../image/parking 3.jpg', '443', 20, 'cam', 'nai'),
-(19, 27, 'bfc,dhanmondi 27', 0x000000000101000000429c7fa2cf5b44407974443a938052c0, '../image/', '443', 30, 'cam', 'nai'),
-(20, 28, 'uttara 55', 0x000000000101000000429c7fa2cf5b44407974443a938052c0, '../image/parking1.jpg', '443', 25, 'cam', 'nai'),
-(21, 29, 'dhanmondi 234', 0x000000000101000000429c7fa2cf5b44407974443a938052c0, '../image/parking 3.jpg', '443', 50, 'cam', 'nai'),
-(22, 30, '12 uttara', 0x000000000101000000429c7fa2cf5b44407974443a938052c0, '../image/parking 3.jpg', '222', 25, 'cam', 'nai'),
-(23, 31, 'uttara rd 14', 0x000000000101000000429c7fa2cf5b44407974443a938052c0, '../image/parking 3.jpg', '225', 25, 'cam', 'nai');
+(25, 35, 'Asiana apartments, Shyamoli, D', 0x000000000101000000be14b5c168c637400000008b4e975640, '../image/parking 2.jpg', '220sqft', 25, 'Available', 'Camera available'),
+(26, 36, 'Banani super market', 0x000000000101000000f1fb903629cb3740b149e18e039a5640, '../image/parking1.jpg', '443sqft', 30, 'Cam', 'N/A'),
+(27, 37, 'Banani road 11', 0x000000000101000000778b091e61ca374076f39e85ef995640, '../image/parking 3.jpg', '222sqft', 20, 'Guards available', 'basement 1'),
+(28, 38, 'Road 4, Banani, Dhaka', 0x00000000010100000098b63a4837cb3740ec794684b3995640, '../image/parking 3.jpg', '225sqft', 30, 'Cam', 'Basement 1'),
+(31, 52, 'road 5, sector 4, Uttara', 0x000000000101000000c0a9e94311dc3740be61bf00c3995640, '../image/parking 3.jpg', '443sqft', 50, 'Guards Available', 'Camera Available');
 
 -- --------------------------------------------------------
 
@@ -122,16 +117,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UID`, `Fname`, `Lname`, `Email`, `Password`, `PhoneNum`, `VOwner`, `POwner`) VALUES
-(23, 'Shajreen', ' Tabassum', 'shajreen1@yahoo.com', '12345678', '12345678', 'no', 'yes'),
-(24, 'diya', ' Tabassum', 'shajreen2@yahoo.com', '12345679', '12345679', 'no', 'yes'),
-(25, 'diya', 'shaj', 'shajreen3@yahoo.com', '12345670', '12345670', 'no', 'yes'),
-(26, 'mir', 'irm', 'mir@gmail.com', '23456789', '23456789', 'no', 'yes'),
-(27, 'mir', 'ta', 'mir2@gmail.com', '23456789', '23456789', 'no', 'yes'),
-(28, 'mir', 'ooo', 'mir1@gmail.com', 'wow12345', 'wow1234', 'no', 'yes'),
-(29, 'cool', 'boy', 'mir3@gmail.com', '12345678', '12345678', 'no', 'yes'),
-(30, 'cool', 'irm', 'mir99@gmail.com', '12345678', '12345678', 'no', 'yes'),
-(31, 'diya', ' Tabassum', 'shajreen2000@yahoo.com', 'cutiepie16', 'cutiepie16', 'no', 'yes'),
-(32, 'diya', 'shaj', 'shajreen16@gmail.com', '12345678', '12345678', 'yes', 'no');
+(34, 'Shajreen', 'Diya', 'shajreen16@gmail.com', '12345678', '01818926753', 'yes', 'no'),
+(35, 'Mir', 'Faiyaz', 'mir@gmail.com', 'abcdefghij', '01812345678', 'no', 'yes'),
+(36, 'Shajreen', 'Tabassum', 'shajreen2000@yahoo.com', '12345678', '01912345670', 'no', 'yes'),
+(37, 'Mir', 'Hossain', 'mirhossain8077@gmail.com', 'mir123456', '01712345679', 'no', 'yes'),
+(38, 'Abrar', 'Aziz', 'abrar.aziz@gmail.com', '12345678', '01346875469', 'no', 'yes'),
+(42, 'Faiyaz', 'Hossain', 'mir2@gmail.com', '123456789', '01912345670', 'yes', 'no'),
+(45, 'Mir fairuz', 'husen', 'mir99@gmail.com', '12345678', '12345670', 'yes', 'no'),
+(47, 'Naqib', 'Hussain', 'naqib@yahoo.com', '123456789', '01818928987', 'yes', 'no'),
+(50, 'mir', 'husen', 'mir@nsu.edu', 'kalobiral', '01818928200', 'no', 'yes'),
+(52, 'Shajreen Tabassum', 'shaj', 'diya@outlook.com', '12345678', '01711428234', 'no', 'yes'),
+(53, 'diya', 'shaj', 'shajreen1000@yahoo.com', '12345678', '12345678643', 'no', 'yes');
 
 -- --------------------------------------------------------
 
@@ -152,7 +148,10 @@ CREATE TABLE `vehicledetails` (
 --
 
 INSERT INTO `vehicledetails` (`VID`, `UID`, `VName`, `VNum`, `VPhoto`) VALUES
-(2, 32, 'gari', '876543', 0x2e2e2f696d6167652f626d772e6a706567);
+(3, 34, 'Toyota Corolla', 'Dhaka Metro-', 0x2e2e2f696d6167652f636172312e6a7067),
+(5, 42, 'BMW', 'Dhaka Metro-', 0x2e2e2f696d6167652f626d772e6a706567),
+(6, 45, 'BMW', 'Dhaka Metro-', 0x2e2e2f696d6167652f626d772e6a706567),
+(7, 47, 'BMW', 'Dhaka Metro-', 0x2e2e2f696d6167652f626d772e6a706567);
 
 --
 -- Indexes for dumped tables
@@ -162,14 +161,12 @@ INSERT INTO `vehicledetails` (`VID`, `UID`, `VName`, `VNum`, `VPhoto`) VALUES
 -- Indexes for table `activeparking`
 --
 ALTER TABLE `activeparking`
-  ADD PRIMARY KEY (`OID`),
   ADD KEY `PID` (`PID`);
 
 --
 -- Indexes for table `parkinghistory`
 --
 ALTER TABLE `parkinghistory`
-  ADD KEY `OID` (`OID`),
   ADD KEY `VID` (`VID`),
   ADD KEY `PID` (`PID`);
 
@@ -184,7 +181,8 @@ ALTER TABLE `parkingspotdetails`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`UID`);
+  ADD PRIMARY KEY (`UID`),
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Indexes for table `vehicledetails`
@@ -200,26 +198,23 @@ ALTER TABLE `vehicledetails`
 --
 -- AUTO_INCREMENT for table `activeparking`
 --
-ALTER TABLE `activeparking`
-  MODIFY `OID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
---
 -- AUTO_INCREMENT for table `parkingspotdetails`
 --
 ALTER TABLE `parkingspotdetails`
-  MODIFY `PID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `PID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `vehicledetails`
 --
 ALTER TABLE `vehicledetails`
-  MODIFY `VID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `VID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -236,7 +231,6 @@ ALTER TABLE `activeparking`
 -- Constraints for table `parkinghistory`
 --
 ALTER TABLE `parkinghistory`
-  ADD CONSTRAINT `parkinghistory_ibfk_1` FOREIGN KEY (`OID`) REFERENCES `activeparking` (`OID`) ON DELETE CASCADE,
   ADD CONSTRAINT `parkinghistory_ibfk_2` FOREIGN KEY (`VID`) REFERENCES `vehicledetails` (`VID`) ON DELETE CASCADE,
   ADD CONSTRAINT `parkinghistory_ibfk_3` FOREIGN KEY (`PID`) REFERENCES `parkingspotdetails` (`PID`) ON DELETE CASCADE;
 
