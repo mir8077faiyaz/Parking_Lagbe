@@ -267,10 +267,6 @@ echo '  </nav>';
       });
     }
   </script>
-
-
-
-
   
   </body>
 </html>

@@ -2,11 +2,11 @@
 session_start();
 date_default_timezone_set('Asia/Dhaka'); //get current time
 require_once "connect.php";
-require __DIR__ . "../vendor/autoload.php";
+require __DIR__ . "../vendor/autoload.php";// checks for composer
 $stripe_secret_key='sk_test_51NzEY4BWLHJ5D08gs3G5PMW582O43H6fkj0VpNVCWI2YNAo5nIM8ZgV58b7WlJJJ9oUxkaooOErZemXkckcQJZAH00xp0FfDG3';
 
 
-\Stripe\Stripe::setApiKey($stripe_secret_key);
+\Stripe\Stripe::setApiKey($stripe_secret_key);// set api function
 
 $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
 $base_url .= "://" . $_SERVER['HTTP_HOST'];
