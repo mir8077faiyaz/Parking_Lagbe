@@ -6,6 +6,6 @@ https://parkinglagbe.000webhostapp.com/PHP/home.php
 
 # Local run
 1. Download/Clone from git.
-2. Store the File in php/htdocs
+2. Store the File in xampp/htdocs
 3. Import the sql database file
 4. Run
